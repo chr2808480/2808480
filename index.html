@@ -122,14 +122,14 @@
   <script src="posts-data.js"></script>
   <script>
    // トップページ：最新２件だけ表示
-   const previewList = document.getElementById(list-view)
+   const previewList = document.getElementById('list-view');
    if (previewList) {
     const items = POSTS.slice(0, 2); // 新しい順に２件
     previewList.innerHTML = items.map(item =>`
      <li class="topiclist_item">
       <a href="blogdetail.html?id=${item.id}">
        <p class="topiclist_category">${item.category}</p>
-       <p class="topiclist_title">${items.title}</p>
+       <p class="topiclist_title">${item.title}</p>
        <p class="topiclist_date">${item.date}</p>
       </a>
      </li>
@@ -218,7 +218,7 @@
 
     <script>
  // トップページ：landscapeカテゴリーの最新4件だけ表示
- const previewList = document.getElementById('list-view');
+ const gallerypreviewList = document.getElementById('list-view');
  if (previewList) {
   const items = GALLERY.filter(g => g.category === 'landscape').slice(0, 4);
   previewList.innerHTML = items.map(item => `
