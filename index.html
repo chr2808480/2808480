@@ -117,9 +117,24 @@
   <!--トピック一覧-->
   <section id="topic" class="topic">
    <h2 class="headingL">Blog</h2>
-   <ul class="topiclist grid">
+   <ul id="list-view" class="topiclist grid"></ul>
 <!-- ブログ記事 -->
-
+  <script>
+   // トップページ：最新２件だけ表示
+   const previewList = document.getElementById(list-view)
+   if (previewList) {
+    const items = POSTS.slice(0, 2); // 新しい順に２件
+    previewList.innerHTML = items.map(item =>`
+     <li class="topiclist_item">
+      <a href="blogdetail.html?id=${item.id}">
+       <p class="topiclist_category">${item.category}</p>
+       <p class="topiclist_title">${items.title}</p>
+       <p class="topiclist_date">${item.date}</p>
+      </a>
+     </li>
+     `).join('');
+    }
+   </script>
   </section>
   <!--トピック一覧ここまで-->
 
