@@ -1,0 +1,924 @@
+/*－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+  
+ トップページ(index.html)
+  
+  －－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－*/
+
+.index {
+ .headingL {
+  text-align: center;
+ }
+}
+
+.fv {
+ container-type: inline-size;
+ position: absolute;
+ top: 0;
+ left: 0;
+ width: 99vw;
+ height: 100vh;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ overflow: hidden;
+
+ .fv-inner {
+  height: 50vh;
+  grid-template-columns: auto 1fr;
+  gap: 160px;
+ }
+
+ .sitename {
+  margin: 0;
+  font-size: clamp(3rem, 1.909rem + 5.45vw, 6rem);
+  font-weight: 900;
+  letter-spacing: 4px;
+  line-height: 1.4;
+  color: var(--color-text2);
+  word-break: auto-phrase;
+  overflow-wrap: break-word;
+ }
+
+ /* トップイラストエリア */
+ .fv-img {
+  position: relative;
+  height: 50vh;
+  width: 400px;
+
+  /* 水色の四角 　なくしたい場合は背景色を削除してください*/
+  .square {
+    position: absolute;
+    top: -30px;
+    left: 0px;
+   height: 400px;
+   width: 400px;
+   /* 背景色 */
+   background-color: var(--color-sub);
+  }
+
+  img {
+   position: absolute;
+   top: -50px;
+   left: 0px;
+   height: 90vh;
+   width: 300px;
+   object-fit: contain;
+   z-index: 10;
+  }
+ }
+}
+
+.fv+* {
+ margin-top: calc(100vh - 180px);
+}
+
+@container (max-width: 1000px) {
+ .fv {
+  .fv-inner {
+   grid-template-columns: 1fr 1fr;
+   gap: 100px;
+  }
+
+  .fv-img {
+   display: flex;
+   align-items: center;
+   height: 100%;
+   width: 100%;
+
+   .square {
+    height: 30vw;
+    width: 30vw;
+   }
+
+  }
+ }
+}
+
+@container (max-width: 768px) {
+ .fv {
+  .fv-inner {
+   margin-top: -20vh;
+   grid-template-columns: 1fr;
+   gap: 80px;
+  }
+
+  .sitename {
+   line-height: 1.2;
+  }
+
+  .fv-img {
+   .square {
+    position: relative;
+    right: -40px;
+    width: 100%;
+    height: 50vw;
+
+    img {
+     width: 50vw;
+     max-width: 200%;
+
+    }
+   }
+  }
+ }
+}
+
+/*－－－－－－－－－－  更新履歴 －－－－－－－－－－*/
+.news {
+ .headingL {
+  color: var(--color-white);
+  margin-bottom: 1em;
+ }
+}
+
+.update__wrap {
+ margin: 40px 20px;
+ background-color: var(--color-white);
+ border-radius: 64px;
+ padding: 40px 50px 40px 50px;
+ max-width: 800px;
+ margin: auto;
+}
+
+.update {
+ height: 140px;
+ overflow-y: auto;
+ padding-right: 20px;
+
+ .update__item {
+  display: flex;
+  gap: 0px 20px;
+  padding: 10px 0;
+
+  time {
+   color: var(--color-text2);
+   font-weight: 600;
+  }
+ }
+
+ .update__item:not(:last-child) {
+  border-bottom: 5px dotted var(--color-sub);
+ }
+}
+
+
+/* スマホ */
+@media screen and (max-width: 520px) {
+ .update__item {
+  flex-direction: column;
+  gap: 4px;
+ }
+}
+
+/*－－－－－－－－－－ INFORMATION －－－－－－－－－－*/
+.information {
+ padding-top: 190px;
+ background-color: var(--color-white);
+}
+
+@media screen and (max-width: 520px) {
+ .information {
+  padding-top: 140px;
+ }
+}
+
+/*－－－－－－－－－－ Illustration －－－－－－－－－－*/
+.illust {
+ background-color: var(--color-bg);
+
+ .btn {
+  margin: 40px auto;
+
+  .arrow {
+   transform: rotate(45deg);
+  }
+ }
+}
+
+.image-wrapper {
+  position: relative;
+}
+
+.image-wrapper img {
+  display: block;
+}
+
+.image-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0); /* 透明なレイヤー */
+}
+
+/*－－－－－－－－－－ TOPIC －－－－－－－－－－*/
+.topiclist {
+ grid-template-columns: 1fr 1fr;
+ gap: 40px;
+}
+
+.topiclist__item {
+ p {
+  margin: 20px 0;
+ }
+}
+
+@media screen and (max-width: 520px) {
+ .topiclist {
+  grid-template-columns: 1fr;
+ }
+}
+
+
+/*－－－－－－－－－－ Profile －－－－－－－－－－*/
+.profile {
+ background-color: var(--color-sub);
+}
+
+.profile__inner {
+ background-color: var(--color-white);
+ padding: 40px;
+ border-radius: 90px;
+
+}
+
+.profile__img {
+ padding: 0 40px;
+}
+
+.profile__img img {
+ border-radius: 50%;
+ margin: auto;
+}
+
+/*  SNSアイコン  */
+.social-icons {
+ display: flex;
+ gap: 10px;
+ flex-wrap: wrap;
+ margin: 40px 0;
+}
+
+.social-icons a {
+ width: 32px;
+ height: 32px;
+ background-color: var(--color-main);
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ text-decoration: none;
+ transition: all 0.2s ease;
+}
+
+.social-icons a:hover {
+ transform: translateY(-2px);
+ background-color: transparent;
+
+ svg {
+  fill: var(--color-text2);
+ }
+}
+
+.social-icons svg {
+ width: 18px;
+ height: 18px;
+ fill: var(--color-white);
+}
+
+/*－－－－－－－－－－ Contact －－－－－－－－－－*/
+.contact {
+ background-color: var(--color-sub);
+
+ form {
+  width: fit-content;
+  max-width: 100%;
+  margin: auto;
+ }
+}
+
+/*－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+Gallery(gallery.html)
+
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－*/
+.gallery-header {
+ margin-bottom: 40px;
+ padding-bottom: 20px;
+}
+
+/* 一覧表示エリア */
+.gallery-content {
+ section {
+  padding: 60px 0;
+ }
+
+ :target {
+  scroll-margin-top: 100px;
+ }
+}
+
+.gallerylist {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+ /* 170pxの数字を変更することで、画像の最小幅を調整できます。 */
+ gap: 40px;
+ padding: 2px;
+}
+
+.gallerylist__item {
+ aspect-ratio: 3 / 4;
+ overflow: hidden;
+ cursor: pointer;
+ background-color: var(--color-bg);
+ border-radius: 20px;
+}
+
+.gallerylist__item img {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ transition: transform 0.4s ease;
+}
+
+.gallerylist__item:hover img {
+ transform: scale(1.05);
+}
+
+/* 画像表示：全画面レイアウト */
+#detail-view {
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100vw;
+ height: 100vh;
+ background-color: var(--color-bg);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ z-index: 2000;
+ cursor: pointer;
+}
+
+
+.detail-content {
+ width: 90%;
+ height: 90%;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+}
+
+#full-image {
+ max-width: 100%;
+ max-height: 100%;
+ object-fit: contain;
+ margin-bottom: 20px;
+}
+
+/* 表示切り替え用クラス */
+.hidden {
+ display: none !important;
+}
+
+/*－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+Blog(blog.html)
+
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－*/
+
+.blog-header {
+ margin-bottom: 60px;
+ padding-bottom: 20px;
+}
+
+.control-links {
+ position: absolute;
+ top: 100px;
+ right: 20px;
+
+ svg {
+  stroke: var(--color-main);
+ }
+}
+
+.mainarea {}
+
+.onelogbox {
+ margin-bottom: 60px;
+ background-color: var(--color-white);
+ padding: 30px 0;
+ border-bottom: 1px solid var(--color-main);
+
+ .oneloginfo {
+  display: flex;
+  align-items: center;
+  gap: 0px 20px;
+  margin-bottom: 20px;
+
+  .categories {
+   color: var(--color-text2);
+   background-color: var(--color-bg);
+   padding: 6px 16px;
+   border-radius: 9999px;
+  }
+ }
+
+ .comment {
+  h3 {
+   color: var(--color-text2);
+  }
+
+  p {
+   margin-top: 0;
+  }
+ }
+
+ .editlink {
+  display: block;
+  text-align: right;
+
+  svg {
+   stroke: var(--color-main);
+  }
+ }
+}
+
+/*  ページナビ */
+.pagenavi {
+
+ .pagelinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  .prevlink,
+  .nextlink {
+   display: flex;
+   align-items: center;
+   gap: 4px;
+   padding: 4px 10px 4px 12px;
+
+   svg {
+    fill: var(--color-main);
+   }
+
+   &:hover {
+    svg {
+     fill: var(--color-text2);
+    }
+   }
+  }
+ }
+
+ .pagenums {
+  text-align: center;
+
+  a {
+   display: inline-block;
+   width: 38px;
+   height: 38px;
+  }
+ }
+
+
+ a {
+  padding: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  /* border-radius: 999px; */
+ }
+
+ a:hover {
+  background-color: rgb(from var(--color-accent) r g b / 0.8);
+  color: var(--color-text2);
+
+ }
+}
+
+/*－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+Works
+
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－*/
+/*  表紙一覧  */
+.works {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 60px;
+}
+
+.work-card {
+ width: calc((100% - 60px) / 2);
+ border: 1px solid var(--color-sub);
+ padding: 10px;
+ overflow: hidden;
+ transition: all 0.2s ease;
+
+ &:hover {
+  border-color: var(--color-main);
+  box-shadow: 0 4px 14px rgb(from var(--color-sub) r g b / 0.05);
+ }
+
+ a {
+  text-decoration: none;
+
+  &:hover {
+   color: inherit;
+  }
+ }
+
+ /* サムネイル */
+ .work-cover {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+ }
+
+ /* カード内テキストエリア */
+ .work-body {
+  padding: 12px 14px 14px;
+
+  .work-title {
+   font-size: 1.2em;
+   margin: 0 0 1em;
+   text-wrap: auto;
+  }
+
+  .work-description {
+   display: -webkit-box;
+   -webkit-line-clamp: 3;
+   -webkit-box-orient: vertical;
+   overflow: hidden;
+  }
+
+  .work-tags {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+   display: flex;
+   flex-wrap: wrap;
+   gap: 4px;
+
+   .tag {
+    font-size: 0.8em;
+    color: var(--color-main);
+    background-color: rgb(from var(--color-sub) r g b / 0.2);
+    padding: 2px 6px;
+   }
+
+  }
+ }
+
+}
+
+@media screen and (max-width: 768px) {
+ .work-card {
+  width: 100%;
+ }
+}
+
+/*－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+Novel
+
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－*/
+
+/*－－－－－－－－－－  タブ切り替え －－－－－－－－－－*/
+.tab-radio {
+ position: absolute;
+ left: -9999px;
+}
+
+/* タブバー */
+.tab-bar {
+ display: flex;
+ gap: 30px;
+ justify-content: center;
+ flex-wrap: wrap;
+ z-index: 99;
+}
+
+@media screen and (max-width: 520px) {
+ .tab-bar {
+  gap: 0px;
+ }
+}
+
+
+.tab-bar label {
+ cursor: pointer;
+ padding: 4px 8px;
+ transition: all 0.2s ease;
+}
+
+/* ── 選択されたタブのスタイル ── */
+#tab-catA:checked~.tab-bar label[for="tab-catA"],
+#tab-catB:checked~.tab-bar label[for="tab-catB"],
+#tab-catC:checked~.tab-bar label[for="tab-catC"] {
+ background-color: rgb(from var(--color-accent) r g b / 0.2);
+}
+
+/* ── コンテンツパネル ── */
+.tab-panels {
+ position: relative;
+ margin-top: 3em;
+}
+
+.panel {
+ display: none;
+ flex-direction: column;
+ animation: fadeIn 0.3s ease;
+ padding-top: 1em;
+}
+
+@keyframes fadeIn {
+ from {
+  opacity: 0;
+ }
+
+ to {
+  opacity: 1;
+ }
+}
+
+/* どのタブが選ばれているかで対応パネルを表示 */
+#tab-catA:checked~.tab-panels #panel-catA,
+#tab-catB:checked~.tab-panels #panel-catB,
+#tab-catC:checked~.tab-panels #panel-catC {
+ position: relative;
+ display: block;
+}
+
+
+
+/*－－－－－－－－－－  小説一覧 －－－－－－－－－－*/
+/* 目次 */
+.toc {
+ display: flex;
+ gap: 20px;
+ flex-wrap: wrap;
+ justify-content: flex-end;
+ margin-bottom: 2em;
+
+ li {
+  display: flex;
+  gap: 4px;
+
+  &::before {
+   content: "---";
+   display: block;
+   color: var(--color-main);
+  }
+ }
+}
+
+@media screen and (max-width: 768px) {
+ .toc {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  justify-content: flex-start;
+  gap: 4px 20px;
+  background-color: var(--color-white);
+  margin: 0;
+  padding: 20px;
+  width: 100%;
+  z-index: 100;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+
+  li {
+   font-size: 0.8em;
+   overflow-wrap: anywhere;
+
+   &::before {
+    content: "-";
+   }
+  }
+ }
+}
+
+/* 小説一覧共通 */
+.new {
+ color: var(--color-main);
+ font-size: smaller;
+ margin-left: 10px;
+ background-color: rgb(from var(--color-sub) r g b / 0.2);
+}
+
+.tags {
+ margin-bottom: 40px;
+
+ li {
+  font-size: smaller;
+  color: var(--color-main);
+  background-color: rgb(from var(--color-sub) r g b / 0.2);
+  padding: 2px 6px;
+ }
+}
+
+.novellist {
+ margin-top: 20px;
+}
+
+.btn.novel-return {
+ display: inline-flex;
+ align-items: center;
+ background-color: transparent;
+ color: var(--color-text);
+ border-color: var(--color-sub);
+
+ .arrow {
+  margin-left: 4px;
+  margin-right: 8px;
+  border-color: var(--color-main);
+ }
+
+ &:hover {
+  background-color: rgb(from var(--color-accent) r g b / 0.8);
+  color: var(--color-white);
+
+  .arrow {
+   border-color: var(--color-white);
+  }
+ }
+}
+
+/* 小説のタイトル */
+.novellist__title {
+ font-family: var(--font-title);
+ font-weight: 600;
+ font-size: clamp(1.2rem, 1.127rem + 0.36vw, 1.4rem);
+}
+
+/* 数字プラス小タイトルの数字の色 */
+.novellist__number {
+ color: var(--color-main);
+ margin-right: 10px;
+}
+
+/* 短文の補足説明 */
+.novellist__text {
+ display: block;
+ margin: 10px;
+ margin-left: 20px;
+ opacity: 0.8;
+}
+
+/* 長編、中編エリア */
+.series.box,
+.novellist__item.box {
+ border-color: var(--color-sub);
+ margin-top: 2em;
+
+}
+
+@media screen and (max-width: 520px) {
+
+ .series.box,
+ .novellist__item.box {
+  padding: 1.2em;
+ }
+}
+
+.novellist__item {
+ border-right: none;
+ border-left: none;
+}
+
+.novellist__item .grid {
+ grid-template-columns: repeat(auto-fill, minmax(20px, 1fr));
+ gap: 20px;
+}
+
+/*  短編エリア */
+
+.short {
+ padding: 1.2em;
+}
+
+.short .novellist__item {
+ margin-bottom: 2em;
+}
+
+.short .novellist__item>a {
+ font-size: 1.1em;
+ font-family: var(--font-title);
+}
+
+
+/*－－－－－－－－－－  長編目次ページ －－－－－－－－－－*/
+/* サムネイル */
+.series-cover {
+ width: 100%;
+ aspect-ratio: 16 / 9;
+ object-fit: cover;
+ display: block;
+}
+
+/* タイトル */
+.series-title {
+ text-wrap: auto;
+}
+
+/* あらすじ */
+.series-description {
+ display: -webkit-box;
+ -webkit-line-clamp: 3;
+ -webkit-box-orient: vertical;
+ overflow: hidden;
+}
+
+/* タグ */
+.series-tags {
+ list-style: none;
+ margin: 0;
+ padding: 0;
+ display: flex;
+ flex-wrap: wrap;
+ gap: 4px;
+
+ .series-tag {
+  font-size: 0.8em;
+  color: var(--color-main);
+  background-color: rgb(from var(--color-sub) r g b / 0.2);
+  padding: 2px 6px;
+ }
+
+}
+
+/* 目次 */
+.novellist.series-toc {
+ .novellist__item {
+  margin-bottom: 2em;
+
+  .novellist__text {
+   display: inline;
+  }
+ }
+}
+
+/*－－－－－－－－－－  小説本文 －－－－－－－－－－*/
+
+section.novel-body {
+ max-width: 800px;
+ padding-top: 6em;
+
+ p {
+  line-height: 2;
+  margin: 2em 0;
+  /* ▼　自動改行しない場合は削除 */
+  white-space: pre-wrap;
+ }
+}
+
+.novel-title {
+ font-family: var(--font-title);
+ font-weight: 600;
+ font-size: 1.6em;
+ margin: 3em 0;
+}
+
+.novel-nav {
+ margin: 4em auto;
+ padding: 0;
+
+ nav {
+  justify-content: space-between;
+  border-top: 1px solid var(--color-sub);
+  padding: 10px;
+
+  a {
+   text-decoration: none;
+   transition: all 0.2s ease;
+
+   .arrow {
+    width: 10px;
+    height: 10px;
+    margin: 0 4px;
+   }
+
+   &:hover {
+    .arrow {
+     border-color: var(--color-white);
+    }
+   }
+  }
+
+  .btn {
+   border: none;
+  }
+ }
+}
+
+.afterword {
+ max-width: 800px;
+ margin: 4em auto;
+ border: none;
+ background-color: rgb(from var(--color-sub) r g b / 0.2);
+}

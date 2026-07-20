@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap');
+
+/*  カラー設定 */
+:root {
+ --color-bg: #F8F8F4;
+ --color-text: #404040;
+ --color-text2: #73e0bd;
+ --color-main: #b6edc0;
+ --color-sub: #e1f2e2;
+ --color-black: #292929;
+ --color-white: #ffffff;
+}
+
+/*  フォント設定 */
+:root {
+ --font-base: "Outfit", "Zen Maru Gothic", YuGothic, "Yu Gothic medium", "Hiragino Sans", Meiryo, "sans-serif";
+ --font-title: "Outfit", "Zen Maru Gothic", YuGothic, "Yu Gothic medium", "Hiragino Sans", Meiryo, "sans-serif";
+}
