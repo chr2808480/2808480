@@ -127,11 +127,18 @@
     const items = POSTS.slice(0, 2); // 新しい順に２件
     previewList.innerHTML = items.map(item =>`
      <li class="topiclist_item">
-      <a href="blogdetail.html?id=${item.id}">
-       <p class="topiclist_category">${item.category}</p>
-       <p class="topiclist_title">${item.title}</p>
-       <p class="topiclist_date">${item.date}</p>
-      </a>
+      <div class="onelogbox">
+      <div class="oneloginfo">
+       <span class="postdata"><time>${item.date}</time></span>
+       <span class="categories">${item.category}</span>
+      </div>
+      <div class="comment">
+       <h3 class="headingS">
+        <a href="blogdetail.html?id=${item.id}" style="text-decoration: none;">${item.title}</a>
+       </h3>
+       <p>${item.content.slice(0, 50)}${item.content.length > 50 ? '...' : ''}</p>
+       </div>
+      </div>
      </li>
      `).join('');
     }
