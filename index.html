@@ -178,7 +178,7 @@
  <script> // トップページ：landscapeカテゴリーの最新4件だけ表示
   const gallerypreviewList = document.getElementById('list-view');
    if (gallerypreviewList) {
-   const items = GALLERY.filter(g => g.category === 'landscape').slice(0, 4);
+   const items = GALLERY.slice(0, 4);
     gallerypreviewList.innerHTML = items.map(item => `
      <li class="gallerylist__item" data-full="${item.src}" data-caption="${item.caption ?? ''}">
       <img src="${item.src}" alt="" loading="lazy">
