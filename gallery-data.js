@@ -5,6 +5,8 @@
 // ==========================================
 
 const GALLERY = [
- { category: "landscape", src: "../../photo/la-12.jpg", caption: "めでてぇなぁ" },
- { category: "plants",    src: "../../photo/pl-1.jpg", caption: "たのしぃなぁ" },
+ { category: "landscape", src: "images/gallery/photo/IMG_4537.jpg", caption: "抽選制になる前にゲットしたグンマパスポート。上毛かるた一覧が載ってるのが嬉しかった。"},
+ { category: "landscape", src: "images/gallery/photo/IMG_0279.jpg", caption: "すごく気に入っているセミの抜け殻の写真。これがあった神社は至極閑寂で、時が止まっているように感じた。"},
+ { category: "landscape", src: "images/gallery/photo/IMG_0442.jpg", caption: "榛名山にあるワシノ巣風穴。とっても涼しいので夏におすすめのスポット。" },
+ { category: "plants",    src: "images/gallery/illust/photo1.jpg", caption: "JO☆GAMERS一周年記念イラスト。クリスタに乗り換えたばかりだったので、いろんな素材を使うのが楽しかった。" },
 ];
