@@ -27,6 +27,25 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
+// ===== 長押し・ダブルクリック禁止 =====
+
+// 右クリック禁止
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+// ダブルクリック禁止
+document.addEventListener("dblclick", e => {
+    e.preventDefault();
+    e.stopPropagation();
+});
+
+// スマホの長押し禁止
+document.addEventListener("touchstart", e => {
+    if (e.touches.length > 1) e.preventDefault();
+});
+
+// ピンチ操作禁止（必要なら）
+document.addEventListener("gesturestart", e => e.preventDefault());
+
 // スマホ用メニュー　クラス追加
 const ham = document.querySelector("#js-hamburger");
 const nav = document.querySelector("#js-globalnav");
