@@ -95,26 +95,13 @@
     height: 30vw;
     width: 30vw;
    }
-@container (max-width: 1000px) {
- .fv {
-  .fv-inner {
-   grid-template-columns: 1fr 1fr;
-   gap: 100px;
-  }
 
-  .fv-img {
-   display: flex;
-   align-items: center;
-   height: 100%;
-   width: 100%;
-
-   .square {
-    height: 30vw;
-    width: 30vw;
+   .img {
+    top: -8vw;
+    left: -4vw;
+    height: 42vw;
+    width: 32vw;
    }
-  }
- }
-}
   }
  }
 }
