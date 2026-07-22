@@ -21,6 +21,8 @@
  justify-content: center;
  align-items: center;
  overflow: hidden;
+ margin-top: -40px;   /* ← 追加：mainwrapperのpadding-topを打ち消す */
+ margin-left: -20px;  /* ← 追加：mainwrapperのpadding-leftを打ち消す */
 
  .fv-inner {
   height: 50vh;
