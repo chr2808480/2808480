@@ -56,7 +56,7 @@
    background-color: var(--color-sub);
   }
 
-  img {
+  .fv-img img {
    position: absolute;
    top: -50px;
    left: 0px;
@@ -65,9 +65,10 @@
    object-fit: contain;
    z-index: 10;
   }
+   
 /*タブレット用調整*/
 @media (min-width: 600px) and (max-width: 1024px) {
-  img{
+  .fv-img img{
     top: 0;
     left: 0;
  }
@@ -75,7 +76,7 @@
 
 /*PC用調整*/
 @media (min-width: 1025px) {
-  img {
+  fv-img img {
     width: 360px;
   }
 }
