@@ -71,7 +71,7 @@
 
 @container (min-width: 1001px) {
  .fv .fv-img .img {
-  top: -30px;
+  top: -50px;
   left: -70px;
   height: 90vh;
   width: 600px;
@@ -95,7 +95,34 @@
     height: 30vw;
     width: 30vw;
    }
+@container (max-width: 1000px) {
+ .fv {
+  .fv-inner {
+   grid-template-columns: 1fr 1fr;
+   gap: 100px;
+  }
 
+  .fv-img {
+   display: flex;
+   align-items: center;
+   height: 100%;
+   width: 100%;
+
+   .square {
+    height: 30vw;
+    width: 30vw;
+   }
+
+   /* ↓ここを新しく追加 */
+   .img {
+    top: -8vw;
+    left: -4vw;
+    height: 42vw;
+    width: 32vw;
+   }
+  }
+ }
+}
   }
  }
 }
@@ -120,9 +147,11 @@
     height: 50vw;
 
     img {
+     top: -18vw;
+     left: -8vw;
+     height: 86vw;
      width: 50vw;
      max-width: 200%;
-     left: 5px;
     }
    }
   }
