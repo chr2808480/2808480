@@ -12,7 +12,7 @@
 
 .fv {
  container-type: inline-size;
- position: relative;
+ position: absolute;
  top: 0;
  left: 0;
  width: 99vw;
@@ -21,8 +21,6 @@
  justify-content: center;
  align-items: center;
  overflow: hidden;
- margin-top: -40px;   /* ← 追加：mainwrapperのpadding-topを打ち消す */
- margin-left: -20px;  /* ← 追加：mainwrapperのpadding-leftを打ち消す */
 
  .fv-inner {
   height: 50vh;
@@ -70,12 +68,8 @@
   }
  }
 
-.mainwrapper .fv {
- margin-top: -40px;
-}
-
 .fv+* {
- margin-top: 0;
+ margin-top: calc(100vh - 180px);
 }
 
 @container (max-width: 1000px) {
