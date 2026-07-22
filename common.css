@@ -287,7 +287,11 @@ textarea {
 /* スカラップ */
 .divider {
  position: relative;
- padding-top: 0px;
+ padding-top: 120px;
+}
+
+.header.divider {
+ padding-top: -10;
 }
 
 .divider::before {
