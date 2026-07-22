@@ -73,7 +73,7 @@
  .fv .fv-img .img {
   top: -70px;
   left: -70px;
-  height: 90vh;
+  height: 85vh;
   width: 600px;
  }
 }
@@ -115,8 +115,6 @@
 
    /* ↓タブレット用 */
    .img {
-    top: 0vw;
-    left: -4vw;
     height: 42vw;
     width: 32vw;
    }
