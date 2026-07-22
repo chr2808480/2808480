@@ -71,9 +71,9 @@
 
 @container (min-width: 1001px) {
  .fv .fv-img .img {
-  top: -20px;
+  top: -30px;
   left: -70px;
-  height: 80vh;
+  height: 90vh;
   width: 600px;
  }
 }
