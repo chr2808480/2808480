@@ -76,7 +76,7 @@
 
 /*PC用調整*/
 @media (min-width: 1025px) {
-  fv-img img {
+  .fv-img img {
     width: 360px;
   }
 }
