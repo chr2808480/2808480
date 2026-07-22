@@ -391,7 +391,7 @@ textarea {
 }
 
 /*－－－－－－－－－－  セクション －－－－－－－－－－*/
-section:first-of-type:not(.divider) {
+main > section:first-of-type:not(.divider) {
  padding-top: 0;
 }
 
