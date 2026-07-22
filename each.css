@@ -48,9 +48,6 @@
 
   /* 水色の四角 　なくしたい場合は背景色を削除してください*/
   .square {
-    position: absolute;
-    top: 0px;
-    left: 0px;
    height: 400px;
    width: 400px;
    /* 背景色 */
@@ -59,10 +56,10 @@
 
   .img {
    position: absolute;
-   top: -50px;
-   left: 0px;
-   height: 90vh;
-   width: 300px;
+   top: -130px;
+   left: -70px;
+   height: 70vh;
+   width: 400px;
    object-fit: contain;
    z-index: 10;
   }
