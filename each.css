@@ -71,7 +71,7 @@
 
 @container (min-width: 1001px) {
  .fv .fv-img .img {
-  top: -50px;
+  top: -70px;
   left: -70px;
   height: 90vh;
   width: 600px;
@@ -113,9 +113,9 @@
     width: 30vw;
    }
 
-   /* ↓ここを新しく追加 */
+   /* ↓タブレット用 */
    .img {
-    top: -8vw;
+    top: 0vw;
     left: -4vw;
     height: 42vw;
     width: 32vw;
