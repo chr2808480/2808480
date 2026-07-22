@@ -69,6 +69,15 @@
  margin-top: calc(100vh - 180px);
 }
 
+@container (min-width: 1001px) {
+ .fv .fv-img .img {
+  top: 0px;
+  left: -70px;
+  height: 85vh;
+  width: 500px;
+ }
+}
+
 @container (max-width: 1000px) {
  .fv {
   .fv-inner {
@@ -113,7 +122,7 @@
     img {
      width: 50vw;
      max-width: 200%;
-
+     left: 10px;
     }
    }
   }
