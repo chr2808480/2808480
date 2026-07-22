@@ -70,7 +70,7 @@
 }
   
 .fv+* {
- margin-top: calc(100vh - 80px);
+ margin-top: 100vh;
 }
 
 @container (max-width: 1000px) {
