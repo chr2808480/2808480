@@ -69,8 +69,11 @@
    z-index: 10;
   }
  }
+
+.mainwrapper .fv {
+ margin-top: -40px;
 }
-  
+
 .fv+* {
  margin-top: 0;
 }
