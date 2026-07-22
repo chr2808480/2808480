@@ -44,11 +44,13 @@
   position: relative;
   height: 50vh;
   width: 400px;
+  overflow: hidden;
+ }
 
   /* 水色の四角 　なくしたい場合は背景色を削除してください*/
   .square {
     position: absolute;
-    top: -30px;
+    top: 0px;
     left: 0px;
    height: 400px;
    width: 400px;
