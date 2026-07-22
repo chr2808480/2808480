@@ -12,7 +12,7 @@
 
 .fv {
  container-type: inline-size;
- position: absolute;
+ position: relative;
  top: 0;
  left: 0;
  width: 99vw;
@@ -70,7 +70,7 @@
 }
   
 .fv+* {
- margin-top: 50vh;
+ margin-top: 0;
 }
 
 @container (max-width: 1000px) {
