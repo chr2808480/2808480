@@ -42,7 +42,7 @@
  /* トップイラストエリア */
  .fv-img {
   position: relative;
-  height: 50vh;
+  height: 100vh;
   width: 400px;
  }
 
@@ -56,10 +56,10 @@
 
   .img {
    position: absolute;
-   top: -50px;
-   left: 0px;
-   height: 90vh;
-   width: 300px;
+   top: -130px;
+   left: -70px;
+   height: 70vh;
+   width: 400px;
    object-fit: contain;
    z-index: 10;
   }
