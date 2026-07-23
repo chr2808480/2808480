@@ -56,10 +56,10 @@
 
   .img {
    position: absolute;
-   top: -130px;
-   left: -70px;
-   height: 70vh;
-   width: 400px;
+   top: -50px;
+   left: 0px;
+   height: 90vh;
+   width: 300px;
    object-fit: contain;
    z-index: 10;
   }
@@ -67,13 +67,6 @@
 
 .fv+* {
  margin-top: calc(100vh - 180px);
-}
-
-@container (min-width: 1001px) {
- .fv .fv-img .img {
-  height: 85vh;
-  width: 600px;
- }
 }
 
 @container (max-width: 1000px) {
@@ -117,7 +110,6 @@
     height: 50vw;
 
     img {
-     left: 5vw;
      width: 50vw;
      max-width: 200%;
     }
