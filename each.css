@@ -48,7 +48,7 @@
   /* 水色の四角 　なくしたい場合は背景色を削除してください*/
   .square {
    top: -30px;
-   left: 0px
+   left: 0px;
    height: 400px;
    width: 400px;
    /* 背景色 */
