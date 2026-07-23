@@ -65,6 +65,7 @@
    z-index: 10;
   }
  }
+}
 
 .fv+* {
  margin-top: calc(100vh - 180px);
