@@ -55,7 +55,7 @@
    background-color: var(--color-sub);
   }
 
-  .img {
+  img {
    position: absolute;
    top: -50px;
    left: 0px;
