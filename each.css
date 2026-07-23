@@ -42,9 +42,8 @@
  /* トップイラストエリア */
  .fv-img {
   position: relative;
-  height: 100vh;
+  height: 100%;
   width: 400px;
- }
 
   /* 水色の四角 　なくしたい場合は背景色を削除してください*/
   .square {
@@ -54,7 +53,7 @@
    background-color: var(--color-sub);
   }
 
-  .img {
+  img {
    position: absolute;
    top: -130px;
    left: -70px;
