@@ -58,8 +58,8 @@
   img {
    position: absolute;
    top: -130px;
-   left: 0px;
-   height: 95vh;
+   left: -70px;
+   height: 70vh;
    width: 400px;
    object-fit: contain;
    z-index: 10;
