@@ -24,7 +24,7 @@
 
  .fv-inner {
   height: 50vh;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto auto;
   gap: 160px;
  }
 
