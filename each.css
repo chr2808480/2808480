@@ -47,17 +47,13 @@
 
   /* 水色の四角 　なくしたい場合は背景色を削除してください*/
   .square {
-   top: -30px;
-   left: 0px;
    height: 400px;
    width: 400px;
-   /* 背景色 */
-   background-color: var(--color-sub);
   }
 
   img {
    position: absolute;
-   top: -110px;
+   top: -100px;
    left: -70px;
    height: 70vh;
    width: 400px;
@@ -107,7 +103,7 @@
   .fv-img {
    .square {
     position: relative;
-    right: -80px;
+    right: -40px;
     width: 100%;
     height: 50vw;
 
