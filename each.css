@@ -39,34 +39,41 @@
   overflow-wrap: break-word;
  }
 
- /* トップイラストエリア */
- .fv-img {
-  position: relative;
-  height: 100%;
-  width: 400px;
-
-  /* 水色の四角 　なくしたい場合は背景色を削除してください*/
-  .square {
-   height: 400px;
-   width: 400px;
-  }
-
-  img {
-   position: absolute;
-   top: -100px;
-   left: -60px;
-   height: 70vh;
-   width: 450px;
-   object-fit: contain;
-   z-index: 10;
-  }
- }
+/* ① .fv-inner に中央揃えを追加 */
+.fv-inner {
+ height: 50vh;
+ grid-template-columns: auto auto;
+ gap: 160px;
+ align-items: center;   /* ←追加 */
 }
 
+/* ② .fv-img の height:100% を削除(高さを .square に任せる) */
+.fv-img {
+ position: relative;
+ height: auto;          /* ← height: 100%; から変更 */
+ width: 400px;
+
+ .square {
+  height: 400px;
+  width: 400px;
+ }
+
+ img {
+  position: absolute;
+  top: 50%;              /* ← -100px から変更 */
+  left: 50%;              /* ← -60px から変更 */
+  transform: translate(-50%, -50%); /* ←追加 */
+  height: 70vh;
+  width: 450px;
+  object-fit: contain;
+  z-index: 10;
+ }
+}
 .fv+* {
  margin-top: calc(100vh - 180px);
 }
 
+/* ③ タブレット:height:100% を削除し、中央寄せを追加 */
 @container (max-width: 1000px) {
  .fv {
   .fv-inner {
@@ -77,8 +84,9 @@
   .fv-img {
    display: flex;
    align-items: center;
-   height: 100%;
+   justify-content: center; /* ←追加(左右中央) */
    width: 100%;
+   /* height: 100%; ← 削除 */
 
    .square {
     height: 30vw;
@@ -88,6 +96,7 @@
  }
 }
 
+/* ④ スマホ:.square の position/right ハックを削除 */
 @container (max-width: 768px) {
  .fv {
   .fv-inner {
@@ -102,10 +111,10 @@
 
   .fv-img {
    .square {
-    position: relative;
-    right: -40px;
     width: 100%;
     height: 50vw;
+    /* position: relative; ← 削除 */
+    /* right: -40px; ← 削除 */
 
     img {
      width: 50vw;
