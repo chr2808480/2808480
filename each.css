@@ -25,7 +25,8 @@
  .fv-inner {
   height: 50vh;
   grid-template-columns: auto auto;
-  gap: 160px;
+  /* サイト名とFVイラストの間の余白（PC表示のみ） */
+  gap: 0;
   align-items: center;
  }
 
