@@ -74,7 +74,8 @@
  .fv {
   .fv-inner {
    grid-template-columns: 1fr 1fr;
-   gap: 100px;
+   gap: 60px;
+   padding: 0 20px;
   }
 
   .fv-img {
