@@ -31,16 +31,26 @@
  <main class="mainwrapper" id="js-main">
  
   <h2 class="headingL">Blog</h2>
+
+  <!-- カテゴリー絞り込み -->
+  <div class="blog-header">
+   <div id="categoryNav" class="categorynav" role="group" aria-label="カテゴリーで絞り込み"></div>
+  </div>
+
   <ul class="topiclist grid" id="postGrid"></ul>
- 
+  <p id="postEmpty" class="blog-empty" hidden>このカテゴリーの記事はまだありません。</p>
+
 <script src="posts-data.js"></script>
 <script>
-  // POSTS 配列（posts-data.js）からカードを自動生成
+  // POSTS 配列（posts-data.js）からカードとカテゴリーボタンを自動生成
   const grid = document.getElementById('postGrid');
- 
-POSTS.forEach(post => {
-  const li = document.createElement('li');
-  li.innerHTML = `
+  const categoryNav = document.getElementById('categoryNav');
+  const postEmpty = document.getElementById('postEmpty');
+  const ALL = '__all__'; // 「すべて」ボタン用の値
+
+  // 記事カード1件分のHTML
+  const cardHTML = post => `
+    <li>
     <div class="onelogbox">
       <div class="oneloginfo">
         <span class="postdata"><time>${post.date}</time></span>
@@ -53,9 +63,48 @@ POSTS.forEach(post => {
         <p>${post.content.slice(0, 50)}${post.content.length > 50 ? '...' : ''}</p>
       </div>
     </div>
+    </li>
   `;
-  grid.appendChild(li);
-});
+
+  // カテゴリーボタンを生成
+  // ボタンの並び順は posts-data.js に出てくる順番です。
+  // 新しいカテゴリーの記事を追加すれば、ボタンも自動で増えます。
+  const categories = [...new Set(POSTS.map(post => post.category))];
+
+  categoryNav.innerHTML = [
+    { key: ALL, label: 'すべて', count: POSTS.length },
+    ...categories.map(category => ({
+      key: category,
+      label: category,
+      count: POSTS.filter(post => post.category === category).length
+    }))
+  ].map(item => `
+    <button type="button" class="categorybtn" data-category="${item.key}" aria-pressed="false">
+      ${item.label}<span class="categorybtn__count">${item.count}</span>
+    </button>
+  `).join('');
+
+  // 選ばれたカテゴリーの記事だけを表示
+  const renderPosts = key => {
+    const items = key === ALL ? POSTS : POSTS.filter(post => post.category === key);
+
+    grid.innerHTML = items.map(cardHTML).join('');
+    postEmpty.hidden = items.length > 0;
+
+    categoryNav.querySelectorAll('.categorybtn').forEach(btn => {
+      const isActive = btn.dataset.category === key;
+      btn.classList.toggle('_active', isActive);
+      btn.setAttribute('aria-pressed', isActive);
+    });
+  };
+
+  categoryNav.addEventListener('click', e => {
+    const btn = e.target.closest('.categorybtn');
+    if (btn) renderPosts(btn.dataset.category);
+  });
+
+  // 最初は「すべて」を表示
+  renderPosts(ALL);
 
 </script>
  </main><!-- メインコンテンツここまで -->
