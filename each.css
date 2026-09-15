@@ -25,6 +25,7 @@
  .fv-inner {
   height: 50vh;
   grid-template-columns: auto auto;
+  /* サイト名とFVイラストの間の余白（PC表示のみ） */
   gap: 0;
   align-items: center;
  }
@@ -386,6 +387,51 @@ Blog(blog.html)
 .blog-header {
  margin-bottom: 60px;
  padding-bottom: 20px;
+}
+
+/* カテゴリー絞り込みボタン */
+.categorynav {
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
+ gap: 12px;
+}
+
+.categorybtn {
+ -webkit-appearance: none;
+ -moz-appearance: none;
+ appearance: none;
+ font-family: inherit;
+ font-size: 1rem;
+ color: var(--color-text2);
+ background-color: var(--color-white);
+ border: 1px solid var(--color-main);
+ border-radius: 99px;
+ padding: 8px 20px;
+ cursor: pointer;
+ transition: 0.2s;
+
+ /* 件数　表示したくない場合は display: none; にしてください */
+ .categorybtn__count {
+  margin-left: 8px;
+  font-size: 0.8em;
+ }
+}
+
+.categorybtn:hover {
+ background-color: var(--color-sub);
+}
+
+.categorybtn._active {
+ /* 選択中のボタン　文字を濃くして読みやすくしています */
+ color: var(--color-text);
+ background-color: var(--color-main);
+}
+
+/* 記事が0件のときのメッセージ */
+.blog-empty {
+ text-align: center;
+ margin: 60px 0;
 }
 
 .control-links {
