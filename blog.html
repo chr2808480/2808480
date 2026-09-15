@@ -47,6 +47,13 @@
   const categoryNav = document.getElementById('categoryNav');
   const postEmpty = document.getElementById('postEmpty');
   const ALL = '__all__'; // 「すべて」ボタン用の値
+  let currentCategory = ALL; // いま選ばれているカテゴリー
+
+  // 記事詳細へのリンク　いま選んでいるカテゴリーを from= で引き継ぎます
+  const detailURL = post => {
+    const from = currentCategory === ALL ? '' : `&from=${encodeURIComponent(currentCategory)}`;
+    return `blogdetail.html?id=${post.id}${from}`;
+  };
 
   // 記事カード1件分のHTML
   const cardHTML = post => `
@@ -58,7 +65,7 @@
       </div>
       <div class="comment">
         <h3 class="headingS">
-          <a href="blogdetail.html?id=${post.id}" style="text-decoration: none;">${post.title}</a>
+          <a href="${detailURL(post)}" style="text-decoration: none;">${post.title}</a>
         </h3>
         <p>${post.content.slice(0, 50)}${post.content.length > 50 ? '...' : ''}</p>
       </div>
@@ -86,6 +93,7 @@
 
   // 選ばれたカテゴリーの記事だけを表示
   const renderPosts = key => {
+    currentCategory = key;
     const items = key === ALL ? POSTS : POSTS.filter(post => post.category === key);
 
     grid.innerHTML = items.map(cardHTML).join('');
@@ -96,6 +104,14 @@
       btn.classList.toggle('_active', isActive);
       btn.setAttribute('aria-pressed', isActive);
     });
+
+    // URLにカテゴリーを残す　ブラウザの「戻る」でも絞り込みが保たれます
+    try {
+      history.replaceState(null, '',
+        key === ALL ? location.pathname : `${location.pathname}?category=${encodeURIComponent(key)}`);
+    } catch (e) {
+      // ファイルを直接開いて確認しているときなどはURLの書き換えができないので何もしません
+    }
   };
 
   categoryNav.addEventListener('click', e => {
@@ -103,8 +119,9 @@
     if (btn) renderPosts(btn.dataset.category);
   });
 
-  // 最初は「すべて」を表示
-  renderPosts(ALL);
+  // 詳細ページから戻ってきたときは、そのときのカテゴリーで表示（無ければ「すべて」）
+  const requested = new URLSearchParams(location.search).get('category');
+  renderPosts(categories.includes(requested) ? requested : ALL);
 
 </script>
  </main><!-- メインコンテンツここまで -->
