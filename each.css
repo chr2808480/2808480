@@ -73,8 +73,12 @@
 @container (max-width: 1000px) {
  .fv {
   .fv-inner {
+   /* padding はサイト名が画面の左端にくっついてしまうのを防ぐためのものです。
+      左右が 20px ずつ狭くなるぶん gap を 100px → 60px に減らして、
+      サイト名とイラストの大きさが変わらないようにしています */
    grid-template-columns: 1fr 1fr;
-   gap: 100px;
+   gap: 60px;
+   padding: 0 20px;
   }
 
   .fv-img {
