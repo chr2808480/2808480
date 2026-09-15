@@ -59,6 +59,15 @@
   } else {
     container.innerHTML = `<p class="not-found">記事が見つかりませんでした。</p>`;
   }
+
+  // 「一覧に戻る」リンクに、一覧で選んでいたカテゴリー（?from=...）を引き継ぐ
+  const from = params.get('from');
+
+  if (from && POSTS.some(p => p.category === from)) {
+    document.querySelectorAll('.back-link').forEach(link => {
+      link.href = `blog.html?category=${encodeURIComponent(from)}`;
+    });
+  }
 </script>
 
 <!-- ページUP -->
