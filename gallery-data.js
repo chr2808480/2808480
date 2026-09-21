@@ -1,4 +1,5 @@
 const GALLERY = [
+ { category: "landscape", src: "images/gallery/illust/20260921.png", caption: "ドット絵初挑戦イラスト。推しのマイクラ配信は素が見れて好き。"},
  { category: "plants", src: "images/gallery/photo/IMG_0374.jpeg", caption: "ドクターマーチンを見よう見まねで鏡面磨き。けっこう楽しい。"},
  { category: "plants", src: "images/gallery/photo/IMG_4770.jpeg", caption: "2025年9月の戦利品。道を切り開きすぎてる。"},
  { category: "plants", src: "images/gallery/photo/IMG_4537.jpg", caption: "抽選制になる前にゲットしたグンマパスポート。嬉しい。"},
