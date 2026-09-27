@@ -4,7 +4,15 @@
 <head>
  <meta charset="UTF-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- <title>えとくらし/detail</title>
+ <title>Blog｜えとくらし</title>
+ <meta name="description" content="えとくらしのブログ。推し活・日常・趣味・仕事のことなど、日々感じたことをひそやかに綴っています。">
+ <!-- SNSでシェアされたときの表示（OGP） -->
+ <meta property="og:site_name" content="えとくらし">
+ <meta property="og:type" content="article">
+ <meta property="og:title" content="Blog｜えとくらし">
+ <meta property="og:description" content="えとくらしのブログ。推し活・日常・趣味・仕事のことなど、日々感じたことをひそやかに綴っています。">
+ <meta property="og:image" content="https://chr2808480.github.io/2808480/images/index/icon.jpg">
+ <meta name="twitter:card" content="summary">
  <link href="reset.css" rel="stylesheet">
  <link href="common.css" rel="stylesheet" type="text/css">
  <link href="each.css" rel="stylesheet" type="text/css">
@@ -37,12 +45,26 @@
 <script src="posts-data.js"></script>
 <script>
   // URL の ?id=... を読み取り、該当記事を POSTS から探して表示する
+  // 広告・アフィリエイトリンクを含む記事は、posts-data.js の記事に pr: true を付けてください。
+  // 記事の冒頭に「この記事にはプロモーション（広告）が含まれています。」と表示されます（ステマ規制への対応）。
+  //   例）{ id: 46, title: "…", date: "2026-10-01", category: "趣味", pr: true, content: "…" },
   const params = new URLSearchParams(window.location.search);
   const id = Number(params.get('id'));
   const post = POSTS.find(p => p.id === id);
   const container = document.getElementById('article');
 
   if (post) {
+    // 検索結果に出るタイトル・説明文を、この記事のものに書き換える
+    document.title = `${post.title}｜えとくらし`;
+    document.querySelector('meta[name="description"]').content =
+      post.content.replace(/<[^>]*>/g, '').trim().slice(0, 100);
+
+    // ?from=... が付いたURLも同じ記事として扱ってもらうための目印（canonical）
+    const canonical = document.createElement('link');
+    canonical.rel = 'canonical';
+    canonical.href = new URL(`blogdetail.html?id=${post.id}`, location.href).href;
+    document.head.appendChild(canonical);
+
     container.innerHTML = `
       <div class="onelogbox">
         <div class="oneloginfo">
@@ -51,12 +73,19 @@
         </div>
         <div class="comment">
           <h2 class="article-title">${post.title}</h2>
+          ${post.pr ? '<p class="pr-notice">この記事にはプロモーション（広告）が含まれています。</p>' : ''}
           <div class="body-text">${post.content}</div>
         </div>
       </div>
     `;
   } else {
     container.innerHTML = `<p class="not-found">記事が見つかりませんでした。</p>`;
+
+    // 存在しない記事のページは検索結果に出さない
+    const noindex = document.createElement('meta');
+    noindex.name = 'robots';
+    noindex.content = 'noindex';
+    document.head.appendChild(noindex);
   }
 
   // 「一覧に戻る」リンクに、一覧で選んでいたカテゴリー（?from=...）を引き継ぐ
@@ -76,6 +105,11 @@
 
  <!-- フッター -->
  <footer class="divider">
+  <!-- フッターリンク -->
+  <ul class="footer-links">
+   <li><a href="privacy.html">プライバシーポリシー・免責事項</a></li>
+   <li><a href="index.html#contact">お問い合わせ</a></li>
+  </ul>
   <!-- クレジット -->
   <small>© 2026 Illust and Life.<br>Designed by <a href="https://hiro-design.net/utsusemi/" target="_blank">Utsusemi
     Design</a>.</small>
