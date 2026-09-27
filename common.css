@@ -663,3 +663,17 @@ footer {
  line-height: 1;
  letter-spacing: 2px;
 }
+/* フッターリンク（プライバシーポリシー・お問い合わせ） */
+.footer-links {
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
+ gap: 8px 24px;
+ margin-bottom: 20px;
+ font-size: 0.85rem;
+ line-height: 1.6;
+
+ a {
+  color: var(--color-text);
+ }
+}
