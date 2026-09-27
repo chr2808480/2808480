@@ -303,6 +303,21 @@
  }
 }
 
+/* FANBOX 支援ボタン */
+.support {
+ margin-top: 60px;
+ text-align: center;
+
+ .support__text {
+  margin: 0 0 20px;
+  text-align: center;
+ }
+
+ .btn {
+  margin: 0 auto;
+ }
+}
+
 /*－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 
 Gallery(gallery.html)
@@ -558,4 +573,37 @@ Blog(blog.html)
   color: var(--color-text2);
 
  }
+}
+/*－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+Privacy Policy(privacy.html)
+
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－*/
+.policy {
+ max-width: 800px;
+ margin: 40px auto 120px;
+
+ .headingS {
+  margin: 60px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 5px dotted var(--color-sub);
+ }
+
+ p {
+  margin: 0 0 20px;
+ }
+
+ .policy__date {
+  margin-top: 60px;
+  text-align: right;
+ }
+}
+
+/*－－－－－－－－－－ 記事のPR表記（blogdetail.html） －－－－－－－－－－*/
+.pr-notice {
+ margin: 0 0 30px;
+ padding: 8px 16px;
+ font-size: 0.9rem;
+ background-color: var(--color-bg);
+ border-left: 4px solid var(--color-main);
 }
