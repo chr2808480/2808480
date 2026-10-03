@@ -1,19 +1,28 @@
+// 入力欄（応援フォーム・お題箱）の中かどうか
+// 入力欄の中だけは、右クリック・コピー・貼り付けを使えるようにしています。
+// （メモ帳などで書いた文章を貼り付けて送る人が多いためです）
+const isFormField = target => target instanceof Element && target.closest('input, textarea, select') !== null;
+
 document.addEventListener('contextmenu', function(e) {
+  if (isFormField(e.target)) return;
   e.preventDefault();
   alert('右クリックできないんだ～こめんなさい～');
 });
 
 document.addEventListener('copy', function(e) {
+  if (isFormField(e.target)) return;
   e.preventDefault();
   alert('コピーしないでね～こめんなさい～');
 });
 
 document.addEventListener('cut', function(e) {
+  if (isFormField(e.target)) return;
   e.preventDefault();
   alert('切り取らないでね～こめんなさい～');
 });
 
 document.addEventListener('keydown', function(e) {
+  if (isFormField(e.target)) return;
   // Ctrl+C, Ctrl+V, Ctrl+X のショートカットを無効化
   if (e.ctrlKey) {
     switch(e.key) {
@@ -30,7 +39,9 @@ document.addEventListener('keydown', function(e) {
 // ===== 長押し・ダブルクリック禁止 =====
 
 // 右クリック禁止
-document.addEventListener("contextmenu", e => e.preventDefault());
+document.addEventListener("contextmenu", e => {
+    if (!isFormField(e.target)) e.preventDefault();
+});
 
 // ダブルクリック禁止
 document.addEventListener("dblclick", e => {
@@ -142,8 +153,11 @@ document.addEventListener('click', (e) => {
 });
 
 // 応援フォーム送信
-emailjs.init('5X817nnLC3qenuVtC');
-
+// EmailJS を読み込んでいるページ（トップ・Request）でだけ準備します。
+// 読み込んでいないブログなどのページでは、ここでエラーにならないようにしています。
+if (typeof emailjs !== 'undefined') {
+ emailjs.init('5X817nnLC3qenuVtC');
+}
 const contactForm = document.getElementById('js-contact-form');
 const formStatus = document.getElementById('form-status');
 
