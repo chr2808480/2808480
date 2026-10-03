@@ -604,7 +604,14 @@ print {
   -webkit-user-select: none;
   user-select: none;
 }
-
+/* 入力欄の中だけは、文字の選択や長押しでの貼り付けができるようにしています（応援フォーム・お題箱用） */
+input,
+textarea,
+select {
+  -webkit-touch-callout: default;
+  -webkit-user-select: text;
+  user-select: text;
+}
 /*－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 
 ページUP
