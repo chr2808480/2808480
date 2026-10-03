@@ -9,7 +9,7 @@ const REQUEST_OPEN = true;
 const REQUEST_PLANS = [
   {
     name: "イラスト",
-    price: null, // 目安金額（円）　例）3000 と書くと「目安 3,000円〜」と表示されます。null のままだと「pixivでご確認ください」
+    price: 3000,
     url: "https://www.pixiv.net/request/plans/200217",
     detail: "推しのファンアートやオリジナルのイラストを描きます。完成した作品はpixivとこのサイトのギャラリーにのせます。",
     ok: "オリジナル、二次創作（ファンアート）",
