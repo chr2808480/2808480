@@ -606,4 +606,393 @@ Privacy Policy(privacy.html)
  font-size: 0.9rem;
  background-color: var(--color-bg);
  border-left: 4px solid var(--color-main);
+
+
+/*－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+Request(request.html)
+
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－*/
+.request__lead {
+ margin: 20px 0 0;
+}
+
+/* 最初のセクションの上の余白　common.css で 0 になっているので、冒頭の案内文とくっつかないようにしています */
+.mainwrapper.request > section:first-of-type {
+ padding-top: 80px;
+}
+
+/* 受付状況 */
+.reqstatus {
+ display: flex;
+ flex-wrap: wrap;
+ align-items: center;
+ gap: 8px 16px;
+ width: fit-content;
+ margin: 0;
+ padding: 8px 24px;
+ font-weight: 600;
+ background-color: var(--color-white);
+ border: 2px solid var(--color-main);
+ border-radius: 99px;
+
+ .reqstatus__dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--color-text2);
+  border-radius: 50%;
+ }
+
+ .reqstatus__count {
+  font-size: 0.9rem;
+  font-weight: 400;
+ }
+
+ /* お休み中　グレーにしています */
+ &._closed {
+  border-color: #cccccc;
+
+  .reqstatus__dot {
+   background-color: #bbbbbb;
+  }
+ }
+}
+
+/* ご依頼の方法（プランカード） */
+.reqplans {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+ gap: 40px;
+}
+
+.reqplan {
+ display: flex;
+ flex-direction: column;
+ gap: 16px;
+ padding: 40px;
+ background-color: var(--color-white);
+ border: 2px solid var(--color-sub);
+ border-radius: 40px;
+
+ p {
+  margin: 0;
+ }
+
+ .reqplan__label {
+  width: fit-content;
+  padding: 4px 16px;
+  font-size: 0.85rem;
+  background-color: var(--color-sub);
+  border-radius: 99px;
+ }
+
+ .reqplan__name {
+  margin: 0;
+ }
+
+ .reqplan__price {
+  font-size: 1.3rem;
+  font-weight: 700;
+ }
+
+ .reqplan__rules {
+  width: 100%;
+ }
+
+ /* ボタンをカードの下にそろえます */
+ .btn {
+  margin: auto auto 0;
+ }
+
+ .arrow.down {
+  transform: translateY(-3px) rotate(135deg);
+ }
+}
+
+/* スマホではカードの内側の余白を少しせまくします */
+@media screen and (max-width: 520px) {
+ .reqplan {
+  padding: 30px 24px;
+ }
+}
+
+/* 流れ */
+.reqflow {
+ display: grid;
+ grid-template-columns: repeat(4, 1fr);
+ gap: 20px;
+ counter-reset: step;
+
+ li {
+  padding: 30px 20px 24px;
+  text-align: center;
+  background-color: var(--color-white);
+  border: 2px solid var(--color-sub);
+  border-radius: 30px;
+  counter-increment: step;
+ }
+
+ /* 丸の中の番号 */
+ li::before {
+  content: counter(step);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 12px;
+  font-weight: 700;
+  background-color: var(--color-main);
+  border-radius: 50%;
+ }
+
+ .reqflow__title {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+  color: var(--color-text2);
+ }
+
+ .reqflow__text {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+ }
+}
+
+@media screen and (max-width: 768px) {
+ .reqflow {
+  grid-template-columns: 1fr 1fr;
+ }
+}
+
+@media screen and (max-width: 520px) {
+ .reqflow {
+  grid-template-columns: 1fr;
+ }
+}
+
+/* リクエスト一覧 */
+.reqfilter {
+ margin-bottom: 40px;
+}
+
+.reqlist {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+ gap: 40px;
+}
+
+.reqcard {
+ display: flex;
+ flex-direction: column;
+ gap: 16px;
+ padding: 24px;
+ background-color: var(--color-white);
+ border: 2px solid var(--color-sub);
+ border-radius: 30px;
+
+ /* 画像　ギャラリーと同じく、クリックで全画面表示になります */
+ .reqcard__img {
+  aspect-ratio: 1 / 1;
+ }
+
+ .reqcard__info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  font-size: 0.9rem;
+ }
+
+ .reqcard__type {
+  padding: 4px 14px;
+  color: var(--color-text2);
+  background-color: var(--color-bg);
+  border-radius: 99px;
+ }
+
+ .reqcard__text {
+  margin: 0;
+  padding: 12px 16px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+  background-color: var(--color-bg);
+  border-left: 4px solid var(--color-main);
+
+  &._private {
+   color: #999999;
+  }
+ }
+
+ .reqcard__from {
+  margin: 0;
+  font-size: 0.85rem;
+  text-align: right;
+ }
+
+ .reqcard__link {
+  align-self: flex-end;
+  font-size: 0.9rem;
+ }
+}
+
+/* 制作中・完成のバッジ */
+.reqbadge {
+ padding: 4px 14px;
+ font-size: 0.8rem;
+ font-weight: 600;
+ border: 1px solid var(--color-main);
+ border-radius: 99px;
+
+ &._done {
+  background-color: var(--color-main);
+ }
+}
+
+/* お題箱フォーム */
+#odaibako {
+ scroll-margin-top: 40px;
+}
+
+.reqform {
+ max-width: 650px;
+ margin: 40px auto 0;
+
+ fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+ }
+
+ /* お休み中は全体をうすくします */
+ fieldset:disabled {
+  opacity: 0.5;
+ }
+
+ .reqform__item {
+  margin-bottom: 28px;
+ }
+
+ .reqform__label {
+  display: block;
+  margin: 0 0 4px;
+  font-weight: 600;
+ }
+
+ .reqform__required,
+ .reqform__optional {
+  margin-left: 8px;
+  padding: 2px 10px;
+  font-size: 0.75rem;
+  font-weight: 400;
+  border-radius: 99px;
+ }
+
+ .reqform__required {
+  background-color: var(--color-main);
+ }
+
+ .reqform__optional {
+  background-color: var(--color-sub);
+ }
+
+ input[type="text"],
+ input[type="url"],
+ textarea,
+ select {
+  width: 100%;
+  margin: 4px 0 0;
+ }
+
+ select {
+  padding: 6px 10px;
+  color: inherit;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-sub);
+ }
+
+ textarea {
+  min-height: 200px;
+  line-height: 1.6;
+  resize: vertical;
+ }
+
+ .reqform__count {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  text-align: right;
+ }
+
+ .reqform__choices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+ }
+
+ .reqform__choice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.5;
+  cursor: pointer;
+ }
+
+ /* common.css の input の指定（見た目のリセット・幅650px）で
+    ラジオボタンとチェックボックスが見えなくなるので、元に戻しています */
+ input[type="radio"],
+ input[type="checkbox"] {
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
+  appearance: auto;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--color-text2);
+ }
+
+ .btn {
+  margin: 40px auto 0;
+ }
+
+ .btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+ }
+
+ /* 迷惑メール対策の入力欄　画面の外に出して見えなくしています */
+ .reqform__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+ }
+}
+
+.reqform__status {
+ margin: 20px 0 0;
+ text-align: center;
+}
+
+/* 注意事項 */
+.reqnotes {
+ details {
+  padding: 16px 0;
+  border-bottom: 5px dotted var(--color-sub);
+ }
+
+ summary {
+  font-weight: 600;
+  color: var(--color-text2);
+  cursor: pointer;
+ }
+
+ p {
+  margin: 12px 0 0;
+ }
+}
 }
