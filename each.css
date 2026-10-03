@@ -606,7 +606,7 @@ Privacy Policy(privacy.html)
  font-size: 0.9rem;
  background-color: var(--color-bg);
  border-left: 4px solid var(--color-main);
-
+}
 
 /*－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 
@@ -994,5 +994,4 @@ Request(request.html)
  p {
   margin: 12px 0 0;
  }
-}
 }
