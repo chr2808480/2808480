@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>Request｜えとくらし</title>
+ <meta name="description" content="えとくらしのリクエストページ。pixivリクエストでのご依頼と、イラスト・文章・ブログのお題を気軽に送れるお題箱を受け付けています。">
+ <!-- SNSでシェアされたときの表示（OGP） -->
+ <meta property="og:site_name" content="えとくらし">
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="Request｜えとくらし">
+ <meta property="og:description" content="えとくらしのリクエストページ。pixivリクエストでのご依頼と、イラスト・文章・ブログのお題を気軽に送れるお題箱を受け付けています。">
+ <meta property="og:image" content="https://chr2808480.github.io/2808480/images/index/icon.jpg">
+ <meta name="twitter:card" content="summary">
+ <link href="reset.css" rel="stylesheet">
+ <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+ <link href="common.css" rel="stylesheet" type="text/css">
+ <link href="each.css" rel="stylesheet" type="text/css">
+  <!-- ファビコン（ブラウザのタブやブックマークに表示されるアイコン） -->
+ <link rel="icon" href="images/index/icon.jpg" type="image/jpeg">
+ <link rel="apple-touch-icon" href="images/index/icon.jpg">
+</head>
+
+<!-- お題箱で貼り付けなどを使えるように、このページの body には oncontextmenu を付けていません（右クリック禁止は common.js で行っています） -->
+<body>
+ <!--  ヘッダー -->
+ <header class="header divider">
+  <!-- ハンバーガーメニュー -->
+  <button id="js-hamburger" class="hamburger"><span class="hamburger__line"></span></button>
+
+  <!-- メニュー -->
+  <nav id="js-globalnav" class="globalnav flex">
+   <ul class="globalnav__main">
+    <li class="globalnav__item"><a href="index.html">Top</a></li>
+    <li class="globalnav__item"><a href="gallery.html">Gallery</a></li>
+    <li class="globalnav__item"><a href="blog.html">Blog</a></li>
+    <li class="globalnav__item"><a href="request.html">Request</a></li>
+   </ul>
+  </nav><!-- メニューここまで -->
+ </header>
+
+ <!-- メインコンテンツ -->
+ <main class="mainwrapper request" id="js-main">
+
+  <h2 class="headingL">Request</h2>
+
+  <!-- 受付状況（requests-data.js の REQUEST_OPEN で切り替わります） -->
+  <p id="reqStatus" class="reqstatus"></p>
+  <p class="request__lead">イラストや文章のリクエストを受け付けています。お礼をお支払いいただいて確実にご依頼したい方は「pixivリクエスト」、気軽にお題を送りたい方は「お題箱」からどうぞ。</p>
+
+  <!-- ご依頼の方法 -->
+  <section>
+   <h3 class="headingM">Plan <small>-ご依頼の方法-</small></h3>
+   <!-- pixivリクエストのプランは requests-data.js から、この中の先頭に自動で並びます -->
+   <div id="reqPlans" class="reqplans">
+    <!-- お題箱 -->
+    <div class="reqplan">
+     <span class="reqplan__label">お題箱（無償）</span>
+     <h4 class="headingSS reqplan__name">イラスト・文章・ブログのお題</h4>
+     <p class="reqplan__price">無料</p>
+     <p>「これを描いてほしい」「こんな話を読みたい」「ブログでこれについて書いてほしい」など、気軽に送れるお題箱です。お応えできるかはお約束できませんが、届いたお題はすべて読んでいます。</p>
+     <dl class="gridlist reqplan__rules">
+      <dt class="gridlist__label">OK</dt>
+      <dd class="gridlist__text">イラスト、文章（小説など）、ブログのお題</dd>
+      <dt class="gridlist__label">NG</dt>
+      <dd class="gridlist__text">R-18・R-18G、実在の人物、AI学習への利用</dd>
+     </dl>
+     <a href="#odaibako" class="btn">お題箱へ<span class="arrow down"></span></a>
+    </div>
+   </div>
+  </section>
+
+  <!-- 流れ -->
+  <section>
+   <h3 class="headingM">Flow <small>-流れ-</small></h3>
+   <ol class="reqflow">
+    <li>
+     <span class="reqflow__title">リクエストを送る</span>
+     <p class="reqflow__text">pixivリクエスト、またはお題箱から送ってください。</p>
+    </li>
+    <li>
+     <span class="reqflow__title">お返事</span>
+     <p class="reqflow__text">7日以内に、お受けするかどうかを決めます。</p>
+    </li>
+    <li>
+     <span class="reqflow__title">制作</span>
+     <p class="reqflow__text">お受けしたものは、60日以内の完成を目指して制作します。</p>
+    </li>
+    <li>
+     <span class="reqflow__title">完成・公開</span>
+     <p class="reqflow__text">pixivやこのサイトのギャラリー・ブログで公開します。</p>
+    </li>
+   </ol>
+  </section>
+
+  <!-- リクエスト一覧（requests-data.js の REQUESTS から自動で並びます） -->
+  <section>
+   <h3 class="headingM">Works <small>-リクエスト一覧-</small></h3>
+   <div id="reqFilter" class="categorynav reqfilter" role="group" aria-label="状態で絞り込み"></div>
+   <ul id="reqList" class="reqlist"></ul>
+   <p id="reqEmpty" class="blog-empty" hidden></p>
+  </section>
+
+  <!-- お題箱 -->
+  <section id="odaibako">
+   <h3 class="headingM">Odaibako <small>-お題箱-</small></h3>
+   <p class="request__lead">無償・お応えの確約なしのお題箱です。お受けしたものは、上のリクエスト一覧でお知らせします（個別のお返事はしていません）。</p>
+
+   <form id="js-request-form" class="reqform">
+    <fieldset id="reqFieldset">
+     <div class="reqform__item">
+      <label class="reqform__label" for="req-name">お名前（ニックネーム）<span class="reqform__optional">任意</span></label>
+      <input id="req-name" type="text" name="name" maxlength="30" placeholder="空欄なら「匿名さん」になります">
+     </div>
+
+     <div class="reqform__item">
+      <label class="reqform__label" for="req-type">種類<span class="reqform__required">必須</span></label>
+      <select id="req-type" name="type" required>
+       <option value="">えらんでください</option>
+       <option value="イラスト">イラスト</option>
+       <option value="文章（小説など）">文章（小説など）</option>
+       <option value="ブログのお題">ブログのお題</option>
+      </select>
+     </div>
+
+     <div class="reqform__item">
+      <label class="reqform__label" for="req-message">リクエストの内容<span class="reqform__required">必須</span></label>
+      <textarea id="req-message" name="message" maxlength="1000" required placeholder="描いてほしいもの・読みたいもの・書いてほしいことを自由に書いてください"></textarea>
+      <p id="reqCount" class="reqform__count">0 / 1000</p>
+     </div>
+
+     <div class="reqform__item">
+      <label class="reqform__label" for="req-reference">参考URL<span class="reqform__optional">任意</span></label>
+      <input id="req-reference" type="url" name="reference" placeholder="https://">
+     </div>
+
+     <div class="reqform__item">
+      <p class="reqform__label">このサイトへの掲載<span class="reqform__required">必須</span></p>
+      <div class="reqform__choices">
+       <label class="reqform__choice"><input type="radio" name="publish" value="依頼文も作品も掲載OK" required>依頼文も作品も掲載OK</label>
+       <label class="reqform__choice"><input type="radio" name="publish" value="作品だけ掲載OK（依頼文は載せない）">作品だけ掲載OK（依頼文は載せない）</label>
+       <label class="reqform__choice"><input type="radio" name="publish" value="掲載しない">掲載しない</label>
+      </div>
+     </div>
+
+     <div class="reqform__item">
+      <label class="reqform__choice"><input type="checkbox" name="agree" required>下の「注意事項」を読んで同意しました</label>
+     </div>
+
+     <!-- 迷惑メール対策：人には見えない入力欄です。ここに入力があったら送信しません -->
+     <div class="reqform__trap" aria-hidden="true">
+      <label>この欄は空のままにしてください<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+     </div>
+
+     <button class="btn" type="submit">お題を送る</button>
+    </fieldset>
+   </form>
+   <p id="request-status" class="reqform__status" role="status"></p>
+  </section>
+
+  <!-- 注意事項 -->
+  <section class="reqnotes">
+   <h3 class="headingM">Notes <small>-注意事項-</small></h3>
+   <details>
+    <summary>お題箱とpixivリクエストのちがいは？</summary>
+    <p>pixivリクエストは有償のご依頼です。お支払いや、期限までに完成しなかったときの返金はpixivが管理してくれるので、確実にご依頼したい方はこちらをおすすめします。お題箱は無償で、お応えするかどうかは気分と時間しだいです。</p>
+   </details>
+   <details>
+    <summary>お受けできないリクエスト</summary>
+    <p>R-18・R-18Gの内容、実在の人物を描くもの、AIの学習に使うためのもの、誰かを傷つける内容はお受けできません。</p>
+   </details>
+   <details>
+    <summary>完成した作品について</summary>
+    <p>完成した作品の著作権は運営者（Chihiro）にあります。無断転載・二次配布・加工、AIの学習データとしての利用はご遠慮ください。</p>
+   </details>
+   <details>
+    <summary>送った内容はどう使われますか？</summary>
+    <p>お題を拝読するため、また掲載に同意いただいた範囲でこのページにのせるためにだけ使います。くわしくは<a href="privacy.html">プライバシーポリシー</a>をご覧ください。</p>
+   </details>
+  </section>
+
+  <!-- 全画面表示エリア（完成作品の画像をクリックしたとき。初期状態は非表示） -->
+  <div id="detail-view" class="hidden">
+   <div class="detail-content">
+    <img id="full-image" src="" alt="">
+    <p id="detail-caption"></p>
+   </div>
+  </div>
+
+ </main><!-- メインコンテンツここまで -->
+
+ <!-- ページUP -->
+ <a href="#" class="pageup" id="js-pageup">
+  <div class="arrow"></div>
+ </a><!-- ページUPここまで -->
+
+ <!-- フッター -->
+ <footer class="divider">
+  <!-- フッターリンク -->
+  <ul class="footer-links">
+   <li><a href="privacy.html">プライバシーポリシー・免責事項</a></li>
+   <li><a href="index.html#contact">お問い合わせ</a></li>
+  </ul>
+  <!-- クレジット -->
+  <small>© 2026 Illust and Life.<br>Designed by <a href="https://hiro-design.net/utsusemi/" target="_blank">Utsusemi
+    Design</a>.</small>
+  <!-- クレジットここまで -->
+ </footer>
+
+<script src="requests-data.js"></script>
+<script>
+ // { } で囲んで、ここで作る名前が common.js の名前とぶつからないようにしています
+ {
+  // 依頼文などをそのまま表示すると、< などの記号でページが崩れることがあるので、記号を無害な形に置き換えます。
+  // 改行の <br> だけは、posts-data.js と同じように使えるようにしています。
+  const escapeHTML = str => String(str ?? '')
+   .replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+  const withBreaks = str => escapeHTML(str).replace(/&lt;br\s*\/?&gt;/gi, '<br>');
+
+  const STATUS_LABEL = { working: '制作中', done: '完成' };
+  const ROUTE_LABEL = { pixiv: 'pixivリクエスト', odaibako: 'お題箱' };
+
+  // ---------- 受付状況 ----------
+  const statusEl = document.getElementById('reqStatus');
+  const workingCount = REQUESTS.filter(req => req.status === 'working').length;
+  statusEl.classList.toggle('_closed', !REQUEST_OPEN);
+  statusEl.innerHTML = `
+   <span class="reqstatus__dot"></span>${REQUEST_OPEN ? '受付中' : 'お休み中'}
+   <span class="reqstatus__count">いま制作中 ${workingCount}件</span>
+  `;
+
+  // ---------- pixivリクエストのプラン ----------
+  const planHTML = plan => `
+   <div class="reqplan">
+    <span class="reqplan__label">pixivリクエスト（有償）</span>
+    <h4 class="headingSS reqplan__name">${escapeHTML(plan.name)}</h4>
+    <p class="reqplan__price">${plan.price ? `目安 ${Number(plan.price).toLocaleString('ja-JP')}円〜` : '金額はpixivでご確認ください'}</p>
+    <p>${withBreaks(plan.detail)}</p>
+    <dl class="gridlist reqplan__rules">
+     <dt class="gridlist__label">OK</dt>
+     <dd class="gridlist__text">${escapeHTML(plan.ok)}</dd>
+     <dt class="gridlist__label">NG</dt>
+     <dd class="gridlist__text">${escapeHTML(plan.ng)}</dd>
+    </dl>
+    <a href="${escapeHTML(plan.url)}" class="btn" target="_blank" rel="noopener">pixivでリクエストする<span class="arrow right"></span></a>
+   </div>
+  `;
+  document.getElementById('reqPlans').insertAdjacentHTML('afterbegin', REQUEST_PLANS.map(planHTML).join(''));
+
+  // ---------- リクエスト一覧 ----------
+  const reqList = document.getElementById('reqList');
+  const reqFilter = document.getElementById('reqFilter');
+  const reqEmpty = document.getElementById('reqEmpty');
+
+  // リクエスト1件分のカード
+  const cardHTML = req => {
+   const showText = req.showText !== false;
+   // 全画面表示の説明文には、依頼文（<br> は空白にして）を出します
+   const caption = showText ? String(req.text ?? '').replace(/<br\s*\/?>/gi, ' ') : '';
+
+   return `
+    <li class="reqcard">
+     ${req.image ? `
+     <div class="gallerylist__item reqcard__img" data-full="${escapeHTML(req.image)}" data-caption="${escapeHTML(caption)}">
+      <img src="${escapeHTML(req.image)}" alt="リクエスト作品" loading="lazy">
+     </div>` : ''}
+     <div class="reqcard__info">
+      <time>${escapeHTML(req.date)}</time>
+      <span class="reqcard__type">${escapeHTML(req.type)}</span>
+      <span class="reqbadge _${escapeHTML(req.status)}">${STATUS_LABEL[req.status] ?? ''}</span>
+     </div>
+     ${showText
+      ? `<p class="reqcard__text">${withBreaks(req.text)}</p>`
+      : '<p class="reqcard__text _private">（依頼文は非公開です）</p>'}
+     <p class="reqcard__from">${escapeHTML(req.from || '匿名')}さん ・ ${ROUTE_LABEL[req.route] ?? ''}</p>
+     ${req.link ? `<a class="reqcard__link" href="${escapeHTML(req.link)}" target="_blank" rel="noopener">作品を見る</a>` : ''}
+    </li>
+   `;
+  };
+
+  // 絞り込みボタン（ブログのカテゴリーボタンと同じ見た目です）
+  const FILTERS = [
+   { key: 'all', label: 'すべて' },
+   { key: 'working', label: '制作中' },
+   { key: 'done', label: '完成' },
+  ];
+  const countOf = key => key === 'all' ? REQUESTS.length : REQUESTS.filter(req => req.status === key).length;
+
+  reqFilter.innerHTML = FILTERS.map(filter => `
+   <button type="button" class="categorybtn" data-filter="${filter.key}" aria-pressed="false">
+    ${filter.label}<span class="categorybtn__count">${countOf(filter.key)}</span>
+   </button>
+  `).join('');
+  reqFilter.classList.toggle('hidden', REQUESTS.length === 0); // 1件もないときはボタンを隠します
+
+  const renderRequests = key => {
+   const items = key === 'all' ? REQUESTS : REQUESTS.filter(req => req.status === key);
+
+   reqList.innerHTML = items.map(cardHTML).join('');
+   reqEmpty.hidden = items.length > 0;
+   reqEmpty.textContent = REQUESTS.length === 0
+    ? 'まだリクエストはありません。お題箱からお気軽にどうぞ！'
+    : 'この状態のリクエストはまだありません。';
+
+   reqFilter.querySelectorAll('.categorybtn').forEach(btn => {
+    const isActive = btn.dataset.filter === key;
+    btn.classList.toggle('_active', isActive);
+    btn.setAttribute('aria-pressed', isActive);
+   });
+  };
+
+  reqFilter.addEventListener('click', e => {
+   const btn = e.target.closest('.categorybtn');
+   if (btn) renderRequests(btn.dataset.filter);
+  });
+  renderRequests('all');
+
+  // ---------- お題箱 ----------
+  const requestForm = document.getElementById('js-request-form');
+  const requestFieldset = document.getElementById('reqFieldset');
+  const requestStatus = document.getElementById('request-status');
+  const requestMessage = document.getElementById('req-message');
+  const requestCount = document.getElementById('reqCount');
+
+  // お休み中は入力できないようにします
+  if (!REQUEST_OPEN) {
+   requestFieldset.disabled = true;
+   requestStatus.textContent = 'ただいまお題箱はお休み中です。再開したらNEWSでお知らせします。';
+  }
+
+  // 文字数の表示
+  const updateCount = () => {
+   requestCount.textContent = `${requestMessage.value.length} / ${requestMessage.maxLength}`;
+  };
+  requestMessage.addEventListener('input', updateCount);
+  updateCount();
+
+  // 送信
+  // トップの応援フォーム（common.js）と同じ EmailJS のサービス・テンプレートを使い、
+  // 項目をまとめてメッセージ欄に入れて送ります。EmailJS 側で設定を増やす必要はありません。
+  // 届くメールは【お題箱】から始まるので、応援メッセージと見分けられます。
+  const thanks = 'お題を受け取りました！ありがとうございます。お受けするものは、このページの一覧でお知らせします。';
+
+  requestForm.addEventListener('submit', e => {
+   e.preventDefault();
+   const data = new FormData(requestForm);
+
+   // 迷惑メール対策：人には見えない欄に入力があったら、送ったふりだけして終わります
+   if (data.get('website')) {
+    requestForm.reset();
+    updateCount();
+    requestStatus.textContent = thanks;
+    return;
+   }
+
+   // 広告ブロックなどで EmailJS が読み込めなかったとき
+   if (typeof emailjs === 'undefined') {
+    requestStatus.textContent = '送信の準備ができませんでした……。ページを読み込み直してから、もう一度お試しください。';
+    return;
+   }
+
+   const submitBtn = requestForm.querySelector('button[type="submit"]');
+   submitBtn.disabled = true; // 二重送信を防ぎます
+   requestStatus.textContent = '送信中...';
+
+   const message = [
+    '【お題箱】',
+    `【種類】${data.get('type')}`,
+    `【掲載】${data.get('publish')}`,
+    `【参考URL】${data.get('reference').trim() || 'なし'}`,
+    '【内容】',
+    data.get('message'),
+   ].join('\n');
+
+   emailjs.send('service_rwf3ey8', 'template_w407ihr', {
+    name: data.get('name').trim() || '匿名',
+    message,
+   })
+    .then(() => {
+     requestStatus.textContent = thanks;
+     requestForm.reset();
+     updateCount();
+    })
+    .catch(() => {
+     requestStatus.textContent = '送信できませんでした……。時間をおいてまたお試しください。';
+    })
+    .finally(() => {
+     submitBtn.disabled = false;
+    });
+  });
+ }
+</script>
+
+ <!--JavaScrip 読込-->
+ <script src="common.js" type="text/javascript"></script>
+</body>
+
+</html>
