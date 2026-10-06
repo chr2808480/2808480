@@ -608,6 +608,12 @@ Privacy Policy(privacy.html)
  border-left: 4px solid var(--color-main);
 }
 
+/*－－－－－－－－－－ 記事の本文（blogdetail.html） －－－－－－－－－－*/
+/* posts-data.js の content が入る場所　タイトルや下の線とくっつかないよう、上下に余白をとっています */
+.body-text {
+ margin: 48px 0;
+}
+
 /*－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 
 Request(request.html)
