@@ -67,7 +67,8 @@ def content_to_text(content):
 
 def text_to_content(text):
     text = text.replace("\r\n", "\n").replace("\r", "\n").strip("\n")
-    return "<br>".join(line.rstrip() for line in text.split("\n")) + "<br>"
+    # 本文の先頭・末尾には <br> を付けない（余白は CSS の .body-text でとっている）
+    return "<br>".join(line.rstrip() for line in text.split("\n"))
 
 
 def char_count(content):
