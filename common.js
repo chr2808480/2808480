@@ -111,6 +111,7 @@ const openDetail = (src, caption) => {
     scrollPosition = window.pageYOffset;
 
     fullImage.src = src;
+    fullImage.alt = caption || '';
     detailCaption.textContent = caption || ''; // ← 追加
     detailView.classList.remove('hidden');
 

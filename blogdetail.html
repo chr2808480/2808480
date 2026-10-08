@@ -59,15 +59,30 @@
 
   if (post) {
     // 検索結果に出るタイトル・説明文を、この記事のものに書き換える
+    const description = post.content.replace(/<[^>]*>/g, '').trim().slice(0, 100);
     document.title = `${post.title}｜えとくらし`;
-    document.querySelector('meta[name="description"]').content =
-      post.content.replace(/<[^>]*>/g, '').trim().slice(0, 100);
+    document.querySelector('meta[name="description"]').content = description;
+    document.querySelector('meta[property="og:title"]').content = document.title;
+    document.querySelector('meta[property="og:description"]').content = description;
 
     // ?from=... が付いたURLも同じ記事として扱ってもらうための目印（canonical）
     const canonical = document.createElement('link');
     canonical.rel = 'canonical';
     canonical.href = new URL(`blogdetail.html?id=${post.id}`, location.href).href;
     document.head.appendChild(canonical);
+
+    // 「ブログ記事・タイトル・投稿日・書いた人」を検索エンジンに伝える構造化データ（JSON-LD）
+    const structuredData = document.createElement('script');
+    structuredData.type = 'application/ld+json';
+    structuredData.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: post.title,
+      datePublished: post.date,
+      author: { '@type': 'Person', name: 'Chihiro', url: new URL('./', location.href).href },
+      mainEntityOfPage: canonical.href,
+    });
+    document.head.appendChild(structuredData);
 
     container.innerHTML = `
       <div class="onelogbox">
@@ -76,7 +91,7 @@
           <span class="categories">${post.category ?? ''}</span>
         </div>
         <div class="comment">
-          <h2 class="article-title">${post.title}</h2>
+          <h1 class="article-title">${post.title}</h1>
           ${post.pr ? '<p class="pr-notice">この記事にはプロモーション（広告）が含まれています。</p>' : ''}
           <div class="body-text">${post.content}</div>
         </div>

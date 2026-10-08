@@ -6,6 +6,8 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
  <title>えとくらし｜絵と暮らしの個人サイト</title>
  <meta name="description" content="描いたイラストや撮った写真、推し活・日常・趣味のことを綴ったブログをのせている個人サイトです。">
+ <!-- 検索エンジンに「このページの正式なURLはこれ」と伝える目印（canonical） -->
+ <link rel="canonical" href="https://chr2808480.github.io/2808480/">
  <!-- SNSでシェアされたときの表示（OGP） -->
  <meta property="og:site_name" content="えとくらし">
  <meta property="og:type" content="website">
@@ -50,7 +52,7 @@
     <!-- FVイラスト -->
     <div class="fv-img">
      <div class="square"><!-- 水色の四角 -->
-      <img src="images/index/top.png" alt="top画像">
+      <img src="images/index/top.png" alt="本を片手に歩く女の子のイラスト">
      </div>
     </div>
    </div>
@@ -146,7 +148,7 @@
     <div class="profile__inner grid">
      <!-- 横並びに -->
      <!-- プロフィール画像 -->
-     <div class="profile__img"><img src="images/index/icon.jpg" alt="アイコンです"></div>
+     <div class="profile__img"><img src="images/index/icon.jpg" alt="Chihiroのアイコン"></div>
      <!-- プロフィール文章 -->
      <div class="profile__text">
       <h3 class="headingM">Chihiro</h3>
@@ -210,7 +212,7 @@
    const items = GALLERY.slice(0, 4);
     gallerypreviewList.innerHTML = items.map(item => `
      <li class="gallerylist__item" data-full="${item.src}" data-caption="${item.caption ?? ''}">
-      <img src="${item.src}" alt="" loading="lazy">
+      <img src="${item.src}" alt="${item.caption ?? ''}" loading="lazy">
      </li>
   `).join('');
  }

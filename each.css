@@ -599,6 +599,12 @@ Privacy Policy(privacy.html)
  }
 }
 
+/*－－－－－－－－－－ 記事のタイトル（blogdetail.html） －－－－－－－－－－*/
+/* 検索エンジンに記事のタイトルだと伝わるよう h1 にしています。文字の大きさは h2 だったころのまま */
+.article-title {
+ font-size: 1.5em;
+}
+
 /*－－－－－－－－－－ 記事のPR表記（blogdetail.html） －－－－－－－－－－*/
 .pr-notice {
  margin: 0 0 30px;

@@ -6,6 +6,8 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
  <title>Gallery｜えとくらし</title>
  <meta name="description" content="えとくらしのギャラリー。Chihiroが描いたイラストと、日々の暮らしの中で撮った写真をのせています。">
+ <!-- 検索エンジンに「このページの正式なURLはこれ」と伝える目印（canonical） -->
+ <link rel="canonical" href="https://chr2808480.github.io/2808480/gallery.html">
  <!-- SNSでシェアされたときの表示（OGP） -->
  <meta property="og:site_name" content="えとくらし">
  <meta property="og:type" content="website">
@@ -42,7 +44,7 @@
  <!-- メインコンテンツ -->
  <main class="mainwrapper" id="js-main">
 
-  <h2 class="headingL">Gallery</h2>
+  <h1 class="headingL">Gallery</h1>
 
   <div class="gallery-header">
    <!-- galleryメニュー -->
@@ -101,7 +103,7 @@
    .filter(g => g.category === 'landscape')
    .map(item => `
     <li class="gallerylist__item" data-full="${item.src}" data-caption="${item.caption ?? ''}">
-     <img src="${item.src}" alt="" loading="lazy">
+     <img src="${item.src}" alt="${item.caption ?? ''}" loading="lazy">
     </li>
    `).join('');
  }
@@ -111,7 +113,7 @@
    .filter(g => g.category === 'plants')
    .map(item => `
     <li class="gallerylist__item" data-full="${item.src}" data-caption="${item.caption ?? ''}">
-     <img src="${item.src}" alt="" loading="lazy">
+     <img src="${item.src}" alt="${item.caption ?? ''}" loading="lazy">
     </li>
    `).join('');
  }

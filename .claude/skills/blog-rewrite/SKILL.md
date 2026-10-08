@@ -156,6 +156,8 @@ python3 .claude/skills/blog-rewrite/scripts/posts.py show 49   # 反映後に読
 ```
 
 - 広告を含む記事は `add` に `--pr` を付ける。
+- `add` / `update` のあとは、検索エンジン向けの `sitemap.xml` もスクリプトが自動で作り直す。posts-data.js と一緒にコミットする。
+  posts-data.js を手で直したときは `posts.py sitemap` で作り直せる。
 - 本文ファイルは一時的な作業用の場所に置き、リポジトリに残さない。
 - コミットやプッシュは、ユーザーの指示や作業環境のルールに従う。
 

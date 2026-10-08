@@ -7,6 +7,7 @@
   posts.py search 星 プラネタリウム       # 語を含む記事をヒット数順に表示
   posts.py add    --title "…" --category 日常 --file draft.txt [--date 2026-10-02] [--pr] [--dry-run]
   posts.py update 47 [--file draft.txt] [--title "…"] [--category 日常] [--date …] [--dry-run]
+  posts.py sitemap                       # sitemap.xml を作り直す（add / update のあとは自動で実行）
 
 本文テキストは「1行 = 1行、空行 = 空行」の普通のテキストで渡す。
 <br> への変換やダブルクォートのエスケープはスクリプトが行う。
@@ -18,10 +19,16 @@ import json
 import re
 import sys
 from pathlib import Path
+from xml.sax.saxutils import escape
 
 ENTRY_RE = re.compile(r"\{\s*id:\s*(\d+)\s*,(.*?)\n[ \t　]*\}", re.S)
 FIELD_RE = re.compile(r'(\w+):\s*("(?:[^"\\]|\\.)*"|true|false|\d+)', re.S)
 STRING_FIELDS = ("title", "date", "category", "content")
+
+# 公開しているサイトのURL（sitemap.xml に書くURLはすべてこれで始まる）
+SITE_URL = "https://chr2808480.github.io/2808480/"
+# 記事以外で検索に出したいページ。トップは index.html ではなく「/」のURLにそろえる
+SITEMAP_PAGES = ["", "blog.html", "gallery.html", "request.html", "privacy.html"]
 
 
 def find_data(path_arg):
@@ -97,6 +104,23 @@ def write_checked(path, new_raw, expected_count):
         sys.exit("書き込み後の検証に失敗しました（記事数かidが想定と違う）。ファイルは変更していません。")
     with open(path, "w", encoding="utf-8", newline="") as f:
         f.write(new_raw)
+    write_sitemap(path.parent / "sitemap.xml", posts)
+
+
+def write_sitemap(path, posts):
+    """posts-data.js の記事一覧から sitemap.xml を作る（Google Search Console に送る用）。"""
+    urls = [(SITE_URL + page, None) for page in SITEMAP_PAGES]
+    # 記事の lastmod は投稿日。Google は priority / changefreq を使わないので書かない
+    urls += [(f'{SITE_URL}blogdetail.html?id={p["id"]}', p.get("date")) for p in posts]
+    lines = ['<?xml version="1.0" encoding="UTF-8"?>',
+             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for loc, lastmod in urls:
+        lastmod_tag = f"<lastmod>{lastmod}</lastmod>" if lastmod else ""
+        lines.append(f"  <url><loc>{escape(loc)}</loc>{lastmod_tag}</url>")
+    lines.append("</urlset>")
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
+        f.write("\n".join(lines) + "\n")
+    print(f"{path.name} を更新しました（{len(urls)}件のURL）。")
 
 
 def cmd_list(args):
@@ -199,6 +223,11 @@ def cmd_update(args):
     print(f"id {args.id} を更新しました: {', '.join(changes)}")
 
 
+def cmd_sitemap(args):
+    path, _, posts = load(args)
+    write_sitemap(path.parent / "sitemap.xml", posts)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--data", help="posts-data.js のパス")
@@ -235,6 +264,9 @@ def main():
     p.add_argument("--date")
     p.add_argument("--dry-run", action="store_true")
     p.set_defaults(func=cmd_update)
+
+    p = sub.add_parser("sitemap")
+    p.set_defaults(func=cmd_sitemap)
 
     args = ap.parse_args()
     args.func(args)
