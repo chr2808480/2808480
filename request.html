@@ -337,9 +337,9 @@
   updateCount();
 
   // 送信
-  // トップの応援フォーム（common.js）と同じ EmailJS のサービス・テンプレートを使い、
-  // 項目をまとめてメッセージ欄に入れて送ります。EmailJS 側で設定を増やす必要はありません。
-  // 届くメールは【お題箱】から始まるので、応援メッセージと見分けられます。
+  // トップの応援フォーム（common.js）と同じ、えとくらし用の EmailJS テンプレートで送ります。
+  // 種類・掲載・参考URLはテンプレートで別々の欄に表示され、件名で応援メッセージと見分けられます。
+  // メッセージは1行ずつに分けて送り、届くメールでも改行がそのまま見えるようにしています。
   const thanks = 'お題を受け取りました！ありがとうございます。お受けするものは、このページの一覧でお知らせします。';
 
   requestForm.addEventListener('submit', e => {
@@ -364,18 +364,13 @@
    submitBtn.disabled = true; // 二重送信を防ぎます
    requestStatus.textContent = '送信中...';
 
-   const message = [
-    '【お題箱】',
-    `【種類】${data.get('type')}`,
-    `【掲載】${data.get('publish')}`,
-    `【参考URL】${data.get('reference').trim() || 'なし'}`,
-    '【内容】',
-    data.get('message'),
-   ].join('\n');
-
-   emailjs.send('service_rwf3ey8', 'template_w407ihr', {
+   emailjs.send('service_rwf3ey8', 'template_etokurashi', {
+    form_name: 'お題箱',
     name: data.get('name').trim() || '匿名',
-    message,
+    request_type: data.get('type'),
+    publish: data.get('publish'),
+    reference: data.get('reference').trim() || 'なし',
+    message_lines: data.get('message').split(/\r?\n/),
    })
     .then(() => {
      requestStatus.textContent = thanks;
