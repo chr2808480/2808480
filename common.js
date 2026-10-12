@@ -166,7 +166,14 @@ if (contactForm) {
   e.preventDefault();
   formStatus.textContent = '送信中...';
 
-  emailjs.sendForm('service_rwf3ey8', 'template_w407ihr', contactForm)
+  // えとくらし用テンプレート（お題箱と共用）で送ります。
+  // メッセージは1行ずつに分けて送り、届くメールでも改行がそのまま見えるようにしています。
+  const data = new FormData(contactForm);
+  emailjs.send('service_rwf3ey8', 'template_etokurashi', {
+   form_name: '応援メッセージ',
+   name: data.get('name'),
+   message_lines: data.get('message').split(/\r?\n/),
+  })
    .then(() => {
     formStatus.textContent = '送信完了しました～。ありがとうございます！';
     contactForm.reset();
