@@ -6,11 +6,14 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
  <title>えとくらし｜絵と暮らしの個人サイト</title>
  <meta name="description" content="描いたイラストや撮った写真、推し活・日常・趣味のことを綴ったブログをのせている個人サイトです。">
+ <!-- 検索エンジンに伝える、このページの正式なURL -->
+ <link rel="canonical" href="https://chr2808480.github.io/2808480/">
  <!-- SNSでシェアされたときの表示（OGP） -->
  <meta property="og:site_name" content="えとくらし">
  <meta property="og:type" content="website">
  <meta property="og:title" content="えとくらし">
  <meta property="og:description" content="描いたイラストや撮った写真、推し活・日常・趣味のことを綴ったブログをのせている個人サイトです。">
+ <meta property="og:url" content="https://chr2808480.github.io/2808480/">
  <meta property="og:image" content="https://chr2808480.github.io/2808480/images/index/icon.jpg">
  <meta name="twitter:card" content="summary">
  <link href="reset.css" rel="stylesheet">
@@ -127,7 +130,7 @@
       </div>
       <div class="comment">
        <h3 class="headingS">
-        <a href="blogdetail.html?id=${item.id}" style="text-decoration: none;">${item.title}</a>
+        <a href="posts/${item.id}.html" style="text-decoration: none;">${item.title}</a>
        </h3>
        <p>${item.content.slice(0, 50)}${item.content.length > 50 ? '...' : ''}</p>
        </div>

@@ -5,14 +5,25 @@
  <meta charset="UTF-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
  <title>Blog｜えとくらし</title>
- <meta name="description" content="えとくらしのブログ。推し活・日常・趣味・仕事のことなど、日々感じたことをひそやかに綴っています。">
- <!-- SNSでシェアされたときの表示（OGP） -->
- <meta property="og:site_name" content="えとくらし">
- <meta property="og:type" content="article">
- <meta property="og:title" content="Blog｜えとくらし">
- <meta property="og:description" content="えとくらしのブログ。推し活・日常・趣味・仕事のことなど、日々感じたことをひそやかに綴っています。">
- <meta property="og:image" content="https://chr2808480.github.io/2808480/images/index/icon.jpg">
- <meta name="twitter:card" content="summary">
+ <script>
+  // 記事ページは posts/<id>.html に引っ越しました。
+  // 以前のURL（blogdetail.html?id=...）で来た人や検索エンジンを、新しい記事ページへ案内します。
+  // 一覧で選んでいたカテゴリー（?from=...）もそのまま引き継ぎます。
+  const params = new URLSearchParams(location.search);
+  const id = params.get('id');
+
+  if (/^\d+$/.test(id ?? '')) {
+    const from = params.get('from');
+    location.replace(`posts/${Number(id)}.html${from ? `?from=${encodeURIComponent(from)}` : ''}`);
+  } else {
+    // 記事の番号がなく、このページが表示されたままのときは検索結果に出さない
+    // （HTMLに直接書くと、検索エンジンが上の引っ越し案内を読まずに帰ってしまうため、ここで付けています）
+    const noindex = document.createElement('meta');
+    noindex.name = 'robots';
+    noindex.content = 'noindex';
+    document.head.appendChild(noindex);
+  }
+ </script>
  <link href="reset.css" rel="stylesheet">
  <link href="common.css" rel="stylesheet" type="text/css">
  <link href="each.css" rel="stylesheet" type="text/css">
@@ -41,66 +52,10 @@
 <!-- メインコンテンツ -->
  <main class="mainwrapper" id="js-main">
     <a href="blog.html" class="back-link">← 一覧に戻る</a>
-  <div id="article"></div>
+  <p class="not-found">記事が見つかりませんでした。</p>
 <a href="blog.html" class="back-link">← 一覧に戻る</a>
 <div class="spacer"></div><div class="spacer"></div><div class="spacer"></div>
  </main>
-
-<script src="posts-data.js"></script>
-<script>
-  // URL の ?id=... を読み取り、該当記事を POSTS から探して表示する
-  // 広告・アフィリエイトリンクを含む記事は、posts-data.js の記事に pr: true を付けてください。
-  // 記事の冒頭に「この記事にはプロモーション（広告）が含まれています。」と表示されます（ステマ規制への対応）。
-  //   例）{ id: 46, title: "…", date: "2026-10-01", category: "趣味", pr: true, content: "…" },
-  const params = new URLSearchParams(window.location.search);
-  const id = Number(params.get('id'));
-  const post = POSTS.find(p => p.id === id);
-  const container = document.getElementById('article');
-
-  if (post) {
-    // 検索結果に出るタイトル・説明文を、この記事のものに書き換える
-    document.title = `${post.title}｜えとくらし`;
-    document.querySelector('meta[name="description"]').content =
-      post.content.replace(/<[^>]*>/g, '').trim().slice(0, 100);
-
-    // ?from=... が付いたURLも同じ記事として扱ってもらうための目印（canonical）
-    const canonical = document.createElement('link');
-    canonical.rel = 'canonical';
-    canonical.href = new URL(`blogdetail.html?id=${post.id}`, location.href).href;
-    document.head.appendChild(canonical);
-
-    container.innerHTML = `
-      <div class="onelogbox">
-        <div class="oneloginfo">
-          <span class="postdata"><time>${post.date}</time></span>
-          <span class="categories">${post.category ?? ''}</span>
-        </div>
-        <div class="comment">
-          <h2 class="article-title">${post.title}</h2>
-          ${post.pr ? '<p class="pr-notice">この記事にはプロモーション（広告）が含まれています。</p>' : ''}
-          <div class="body-text">${post.content}</div>
-        </div>
-      </div>
-    `;
-  } else {
-    container.innerHTML = `<p class="not-found">記事が見つかりませんでした。</p>`;
-
-    // 存在しない記事のページは検索結果に出さない
-    const noindex = document.createElement('meta');
-    noindex.name = 'robots';
-    noindex.content = 'noindex';
-    document.head.appendChild(noindex);
-  }
-
-  // 「一覧に戻る」リンクに、一覧で選んでいたカテゴリー（?from=...）を引き継ぐ
-  const from = params.get('from');
-
-  if (from && POSTS.some(p => p.category === from)) {
-    document.querySelectorAll('.back-link').forEach(link => {
-      link.href = `blog.html?category=${encodeURIComponent(from)}`;
-    });
-  }
-</script>
 
 <!-- ページUP -->
  <a href="#" class="pageup" id="js-pageup">
