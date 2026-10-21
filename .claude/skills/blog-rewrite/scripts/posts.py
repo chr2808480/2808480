@@ -7,13 +7,18 @@
   posts.py search 星 プラネタリウム       # 語を含む記事をヒット数順に表示
   posts.py add    --title "…" --category 日常 --file draft.txt [--date 2026-10-02] [--pr] [--dry-run]
   posts.py update 47 [--file draft.txt] [--title "…"] [--category 日常] [--date …] [--dry-run]
+  posts.py build                         # 記事ページ（posts/<id>.html）と sitemap.xml を作り直す
 
 本文テキストは「1行 = 1行、空行 = 空行」の普通のテキストで渡す。
 <br> への変換やダブルクォートのエスケープはスクリプトが行う。
 posts-data.js の場所は --data で指定できる（省略時はカレントディレクトリから上へ探す）。
+
+add / update のあとは build も自動で行う。posts-data.js を手で直したときは build を実行する。
+記事ページは検索エンジンが読みやすいよう、記事ごとの HTML（posts/<id>.html）として書き出している。
 """
 import argparse
 import datetime
+import html
 import json
 import re
 import sys
@@ -22,6 +27,13 @@ from pathlib import Path
 ENTRY_RE = re.compile(r"\{\s*id:\s*(\d+)\s*,(.*?)\n[ \t　]*\}", re.S)
 FIELD_RE = re.compile(r'(\w+):\s*("(?:[^"\\]|\\.)*"|true|false|\d+)', re.S)
 STRING_FIELDS = ("title", "date", "category", "content")
+
+SITE_URL = "https://chr2808480.github.io/2808480/"
+# サイトマップに載せる、記事以外のページ（"" はトップページ）
+SITE_PAGES = ("", "gallery.html", "blog.html", "request.html", "privacy.html")
+POSTS_DIR = "posts"
+TEMPLATE = Path(__file__).resolve().parent.parent / "templates" / "post.html"
+DATE_RE = re.compile(r"\d{4}-\d{2}-\d{2}")
 
 
 def find_data(path_arg):
@@ -99,6 +111,78 @@ def write_checked(path, new_raw, expected_count):
         f.write(new_raw)
 
 
+def post_url(post_id):
+    return f"{SITE_URL}{POSTS_DIR}/{post_id}.html"
+
+
+def description(content, limit=120):
+    text = html.unescape(re.sub(r"<[^>]+>", "", content))
+    text = re.sub(r"\s+", " ", text).strip()
+    return text if len(text) <= limit else text[:limit] + "…"
+
+
+def rel_links(content):
+    # 本文中の相対リンク（files/blog/… など）を、posts/ フォルダから見た位置に直す
+    return re.sub(r"""((?:href|src)=['"])(?![a-zA-Z][\w+.-]*:|/|#)""", r"\1../", content)
+
+
+def render_post(template, post):
+    url = post_url(post["id"])
+    desc = description(post.get("content", ""))
+    # 検索エンジン向けの記事情報（構造化データ）。</script> で途切れないよう </ をエスケープする
+    json_ld = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.get("title", ""),
+        "datePublished": post.get("date", ""),
+        "author": {"@type": "Person", "name": "Chihiro", "url": SITE_URL},
+    }, ensure_ascii=False).replace("</", "<\\/")
+    values = {
+        "title": html.escape(post.get("title", "")),
+        "description": html.escape(desc),
+        "url": url,
+        "date": html.escape(post.get("date", "")),
+        "category": html.escape(post.get("category", "")),
+        "pr_notice": '<p class="pr-notice">この記事にはプロモーション（広告）が含まれています。</p>' if post.get("pr") else "",
+        "content": rel_links(post.get("content", "")),
+        "json_ld": json_ld,
+    }
+    return re.sub(r"\{\{(\w+)\}\}", lambda m: values[m.group(1)], template)
+
+
+def render_sitemap(posts):
+    rows = [f"  <url><loc>{SITE_URL}{page}</loc></url>" for page in SITE_PAGES]
+    for p in posts:
+        lastmod = f"<lastmod>{p['date']}</lastmod>" if DATE_RE.fullmatch(p.get("date", "")) else ""
+        rows.append(f"  <url><loc>{post_url(p['id'])}</loc>{lastmod}</url>")
+    return ('<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+            + "\n".join(rows) + "\n</urlset>\n")
+
+
+def build(path, posts):
+    """posts/<id>.html と sitemap.xml を書き出す。中身が変わったファイルだけ書き換える。"""
+    root = path.parent
+    out_dir = root / POSTS_DIR
+    out_dir.mkdir(exist_ok=True)
+    template = TEMPLATE.read_text(encoding="utf-8")
+    wanted = {out_dir / f"{p['id']}.html": render_post(template, p) for p in posts}
+    wanted[root / "sitemap.xml"] = render_sitemap(posts)
+    changed = 0
+    for file, text in wanted.items():
+        if not file.exists() or file.read_text(encoding="utf-8") != text:
+            with open(file, "w", encoding="utf-8", newline="\n") as f:
+                f.write(text)
+            changed += 1
+    # posts-data.js から消えた記事のページは削除する
+    removed = 0
+    for file in out_dir.glob("*.html"):
+        if re.fullmatch(r"\d+\.html", file.name) and file not in wanted:
+            file.unlink()
+            removed += 1
+    print(f"記事ページとサイトマップを更新しました（{len(posts)}記事 / 変更 {changed}・削除 {removed}ファイル）。")
+
+
 def cmd_list(args):
     _, _, posts = load(args)
     if args.category:
@@ -167,6 +251,7 @@ def cmd_add(args):
         return
     write_checked(path, new_raw, len(posts) + 1)
     print(f"id {new_id}「{args.title}」({date} / {args.category} / {char_count(text_to_content(text))}字) を先頭に追加しました。")
+    build(path, parse(new_raw))
 
 
 def cmd_update(args):
@@ -197,6 +282,12 @@ def cmd_update(args):
         return
     write_checked(path, new_raw, len(posts))
     print(f"id {args.id} を更新しました: {', '.join(changes)}")
+    build(path, parse(new_raw))
+
+
+def cmd_build(args):
+    path, _, posts = load(args)
+    build(path, posts)
 
 
 def main():
@@ -235,6 +326,9 @@ def main():
     p.add_argument("--date")
     p.add_argument("--dry-run", action="store_true")
     p.set_defaults(func=cmd_update)
+
+    p = sub.add_parser("build")
+    p.set_defaults(func=cmd_build)
 
     args = ap.parse_args()
     args.func(args)

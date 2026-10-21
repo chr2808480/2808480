@@ -6,11 +6,14 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
  <title>Blog｜えとくらし</title>
  <meta name="description" content="えとくらしのブログ。推し活・日常・趣味・仕事のことなど、日々感じたことをひそやかに綴っています。">
+ <!-- 検索エンジンに伝える、このページの正式なURL（?category=... 付きのURLも同じページとして扱われます） -->
+ <link rel="canonical" href="https://chr2808480.github.io/2808480/blog.html">
  <!-- SNSでシェアされたときの表示（OGP） -->
  <meta property="og:site_name" content="えとくらし">
  <meta property="og:type" content="website">
  <meta property="og:title" content="Blog｜えとくらし">
  <meta property="og:description" content="えとくらしのブログ。推し活・日常・趣味・仕事のことなど、日々感じたことをひそやかに綴っています。">
+ <meta property="og:url" content="https://chr2808480.github.io/2808480/blog.html">
  <meta property="og:image" content="https://chr2808480.github.io/2808480/images/index/icon.jpg">
  <meta name="twitter:card" content="summary">
  <link href="reset.css" rel="stylesheet">
@@ -61,10 +64,10 @@
   const ALL = '__all__'; // 「すべて」ボタン用の値
   let currentCategory = ALL; // いま選ばれているカテゴリー
 
-  // 記事詳細へのリンク　いま選んでいるカテゴリーを from= で引き継ぎます
+  // 記事ページ（posts/<id>.html）へのリンク　いま選んでいるカテゴリーを from= で引き継ぎます
   const detailURL = post => {
-    const from = currentCategory === ALL ? '' : `&from=${encodeURIComponent(currentCategory)}`;
-    return `blogdetail.html?id=${post.id}${from}`;
+    const from = currentCategory === ALL ? '' : `?from=${encodeURIComponent(currentCategory)}`;
+    return `posts/${post.id}.html${from}`;
   };
 
   // 記事カード1件分のHTML

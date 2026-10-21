@@ -1,0 +1,47 @@
+# posts-data.js を GitHub の画面で直接書き換えたときも、記事ページ（posts/<id>.html）と
+# sitemap.xml が自動で作り直されるようにするための仕組みです。
+# Claude で記事を追加したときは、すでに作り直されているので何もせずに終わります。
+name: 記事ページとサイトマップの更新
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - posts-data.js
+      - .claude/skills/blog-rewrite/templates/post.html
+      - .claude/skills/blog-rewrite/scripts/posts.py
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: build-posts
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: 記事ページとサイトマップを作り直す
+        run: python3 .claude/skills/blog-rewrite/scripts/posts.py build
+
+      - name: 変わったファイルがあれば保存して公開しなおす
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add posts sitemap.xml
+          if git diff --cached --quiet; then
+            echo "作り直しが必要なファイルはありませんでした。"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "記事ページとサイトマップを自動更新"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+          # この仕組みからの保存では GitHub Pages の公開が始まらないことがあるため、公開を依頼する
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/pages/builds" \
+            || echo "::warning::GitHub Pages の公開依頼に失敗しました。次に何かを保存したときに公開されます。"
