@@ -347,6 +347,14 @@ Gallery(gallery.html)
  padding: 2px;
 }
 
+/* スマホでは縦2列に並べる（タップすると画面いっぱいに表示されるので小さめでOK） */
+@media screen and (max-width: 520px) {
+ .gallerylist {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+ }
+}
+
 .gallerylist__item {
  aspect-ratio: 3 / 4;
  overflow: hidden;
