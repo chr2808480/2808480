@@ -1,4 +1,5 @@
 const GALLERY = [
+ { category: "landscape", src: "images/gallery/illust/20261031.jpg", caption: "ディエゴ君描きました。ハッピーハロウィン！"},
  { category: "landscape", src: "images/gallery/illust/20261024.png", caption: "久々にやる気が出て、少女を描いてみました。可愛く描けた！"},
  { category: "landscape", src: "images/gallery/illust/20260921.png", caption: "ドット絵初挑戦イラスト。推しのマイクラ配信は素が見れて好き。"},
  { category: "plants", src: "images/gallery/photo/IMG_0374.jpeg", caption: "ドクターマーチンを見よう見まねで鏡面磨き。けっこう楽しい。"},
