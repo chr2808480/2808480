@@ -47,7 +47,7 @@
   height: auto;
   width: 400px;
 
-  /* 水色の四角 　なくしたい場合は背景色を削除してください*/
+  /* イラストを置く枠（色は付けていません。色を付けたいときは background-color を足してください） */
   .square {
    height: 400px;
    width: 400px;
@@ -136,7 +136,6 @@
 }
 
 .update__wrap {
- margin: 40px 20px;
  background-color: var(--color-white);
  border-radius: 64px;
  padding: 40px 50px 40px 50px;
@@ -174,18 +173,6 @@
  }
 }
 
-/*－－－－－－－－－－ INFORMATION －－－－－－－－－－*/
-.information {
- padding-top: 190px;
- background-color: var(--color-white);
-}
-
-@media screen and (max-width: 520px) {
- .information {
-  padding-top: 140px;
- }
-}
-
 /*－－－－－－－－－－ Illustration －－－－－－－－－－*/
 .illust {
  background-color: var(--color-bg);
@@ -197,24 +184,6 @@
    transform: rotate(45deg);
   }
  }
-}
-
-.image-wrapper {
-  position: relative;
-}
-
-.image-wrapper img {
-  display: block;
-}
-
-.image-wrapper::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0); /* 透明なレイヤー */
 }
 
 /*－－－－－－－－－－ TOPIC －－－－－－－－－－*/
@@ -303,7 +272,7 @@
  }
 }
 
-/* FANBOX 支援ボタン */
+/* リクエストページへの案内ボタン */
 .support {
  margin-top: 60px;
  text-align: center;
@@ -478,18 +447,6 @@ Blog(blog.html)
  margin: 60px 0;
 }
 
-.control-links {
- position: absolute;
- top: 100px;
- right: 20px;
-
- svg {
-  stroke: var(--color-main);
- }
-}
-
-.mainarea {}
-
 .onelogbox {
  margin-bottom: 60px;
  background-color: var(--color-white);
@@ -519,69 +476,8 @@ Blog(blog.html)
    margin-top: 0;
   }
  }
-
- .editlink {
-  display: block;
-  text-align: right;
-
-  svg {
-   stroke: var(--color-main);
-  }
- }
 }
 
-/*  ページナビ */
-.pagenavi {
-
- .pagelinks {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-
-  .prevlink,
-  .nextlink {
-   display: flex;
-   align-items: center;
-   gap: 4px;
-   padding: 4px 10px 4px 12px;
-
-   svg {
-    fill: var(--color-main);
-   }
-
-   &:hover {
-    svg {
-     fill: var(--color-text2);
-    }
-   }
-  }
- }
-
- .pagenums {
-  text-align: center;
-
-  a {
-   display: inline-block;
-   width: 38px;
-   height: 38px;
-  }
- }
-
-
- a {
-  padding: 8px;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-  /* border-radius: 999px; */
- }
-
- a:hover {
-  background-color: rgb(from var(--color-accent) r g b / 0.8);
-  color: var(--color-text2);
-
- }
-}
 /*－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 
 Privacy Policy(privacy.html)

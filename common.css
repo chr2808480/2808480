@@ -50,13 +50,6 @@ a {
  }
 }
 
-/* ホバー装飾の無効化 */
-a:is(.globalnav *, .snslist *)::after,
-.btn::after,
-.pageup::after {
- display: none;
-}
-
 /*－－－－－－－－－－  見出し －－－－－－－－－－*/
 h1,
 h2,
@@ -119,14 +112,6 @@ h6 {
 アイコン等
 
 －－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－*/
-.la,
-.las {
- font-size: 1.2em;
- color: var(--color-main);
- position: relative;
- top: 2px;
-}
-
 /* 矢印 */
 .arrow {
  display: inline-block;
@@ -138,10 +123,6 @@ h6 {
 
  &.right {
   transform: rotate(45deg);
- }
-
- &.left {
-  transform: rotate(-135deg);
  }
 }
 
@@ -288,10 +269,6 @@ textarea {
 .divider {
  position: relative;
  padding-top: 120px;
-}
-
-.header.divider {
- padding-top: -10;
 }
 
 .divider::before {

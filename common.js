@@ -36,12 +36,7 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-// ===== 長押し・ダブルクリック禁止 =====
-
-// 右クリック禁止
-document.addEventListener("contextmenu", e => {
-    if (!isFormField(e.target)) e.preventDefault();
-});
+// ===== ダブルクリック・ピンチ操作禁止 =====
 
 // ダブルクリック禁止
 document.addEventListener("dblclick", e => {
@@ -49,7 +44,7 @@ document.addEventListener("dblclick", e => {
     e.stopPropagation();
 });
 
-// スマホの長押し禁止
+// スマホの2本指操作（ピンチ）禁止
 document.addEventListener("touchstart", e => {
     if (e.touches.length > 1) e.preventDefault();
 });
@@ -67,17 +62,6 @@ ham.addEventListener("click", function () {
  nav.classList.toggle("_active");
  Main.classList.toggle("_darker");
 });
-
-// 子メニュー表示
-const parentMenu = document.querySelectorAll("._has-child > a");
-for (let i = 0; i < parentMenu.length; i++) {
- parentMenu[i].addEventListener("click", function(e){
-  e.preventDefault();
-  this.nextElementSibling.classList.toggle("active");
- })
-}
-
-
 
 // ページUP
 const PageUpBtn = document.querySelector('#js-pageup');
@@ -99,7 +83,6 @@ PageUpBtn?.addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', () => {
     const detailView = document.getElementById('detail-view');
     const fullImage = document.getElementById('full-image');
-    const listItems = document.querySelectorAll('.gallerylist__item');
     const detailCaption = document.getElementById('detail-caption'); // ← 追加
 
 
