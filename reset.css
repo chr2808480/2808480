@@ -89,10 +89,3 @@ textarea:not([rows]) {
 :target {
  scroll-margin-block: 5ex;
 }
-
-.no-save {
- -webkit-user-select: none;
- -moz-user-select: none;
- -ms-user-select: none;
- user-select: none;
-}
