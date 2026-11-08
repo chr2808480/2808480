@@ -19,6 +19,7 @@ GitHub Pages で公開しています：https://chr2808480.github.io/2808480/
 ## 中身を更新するときに直すファイル
 
 - **ブログ記事**：`posts-data.js`（新しい記事を上に書きます）
+- **ブログ記事の写真**：`images/blog/` に画像を置き、`posts-data.js` の本文に `<img src='images/blog/ファイル名.jpg' alt='写真の説明'>` と1行で書きます（前後は空行）。記事ページではギャラリーと同じ角丸になり、タップすると背景が暗くなって大きく表示されます
 - **ギャラリー**：`gallery-data.js` と `images/gallery/` の画像
 - **リクエスト**：`requests-data.js`（受付状況・プラン・受けたリクエスト）
 - **NEWS**：`index.html` の「更新履歴」
@@ -43,4 +44,4 @@ python3 .claude/skills/blog-rewrite/scripts/posts.py build
 - `root.css`：色とフォントの設定（`common.css` から読み込み）
 - `common.css`：全ページ共通の見た目
 - `each.css`：ページごとの見た目
-- `common.js`：メニュー・ページUP・画像の全画面表示・応援フォーム送信・右クリックなどの禁止
+- `common.js`：メニュー・ページUP・画像の全画面表示（ギャラリー・ブログ記事の写真）・応援フォーム送信・右クリックなどの禁止

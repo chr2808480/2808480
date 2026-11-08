@@ -123,6 +123,13 @@
    // トップページ：最新２件だけ表示
    const previewList = document.getElementById('blog-preview');
    if (previewList) {
+    // 記事の書き出し（本文の先頭50文字）
+    // 写真のタグ（とその後ろの改行）は除き、50文字目で途中になったタグ（<b など）も消しています。
+    // タグが途中で切れると、後ろの記事カードまで巻き込んで表示が崩れるためです。
+    const excerpt = content => {
+     const text = content.replace(/<img\b[^>]*>(<br>)*/gi, '');
+     return text.length > 50 ? text.slice(0, 50).replace(/<[^>]*$/, '') + '...' : text;
+    };
     const items = POSTS.slice(0, 2); // 新しい順に２件
     previewList.innerHTML = items.map(item =>`
      <li class="topiclist_item">
@@ -135,7 +142,7 @@
        <h3 class="headingS">
         <a href="posts/${item.id}.html" style="text-decoration: none;">${item.title}</a>
        </h3>
-       <p>${item.content.slice(0, 50)}${item.content.length > 50 ? '...' : ''}</p>
+       <p>${excerpt(item.content)}</p>
        </div>
       </div>
      </li>

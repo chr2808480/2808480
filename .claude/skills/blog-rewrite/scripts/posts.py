@@ -126,6 +126,24 @@ def rel_links(content):
     return re.sub(r"""((?:href|src)=['"])(?![a-zA-Z][\w+.-]*:|/|#)""", r"\1../", content)
 
 
+def wrap_photos(content):
+    """本文の写真を、タップで大きく表示できる枠（<a class="post-photo">）で包む。
+
+    枠は角丸・マウスを乗せたときの拡大（ギャラリーと同じ見た目）に使う。
+    リンク先は写真そのものなので、JavaScript が動かないときも写真を開ける。
+    すでにリンクの中にある写真は、リンクが二重にならないようそのままにする。
+    """
+    def repl(m):
+        before = content[:m.start()]
+        if len(re.findall(r"<a\b", before, re.I)) > len(re.findall(r"</a\s*>", before, re.I)):
+            return m.group(0)
+        src = re.search(r"""\bsrc=(['"])(.*?)\1""", m.group(0))
+        if not src:
+            return m.group(0)
+        return f'<a class="post-photo" href="{src.group(2)}">{m.group(0)}</a>'
+    return re.sub(r"<img\b[^>]*>", repl, content, flags=re.I)
+
+
 def render_post(template, post):
     url = post_url(post["id"])
     desc = description(post.get("content", ""))
@@ -144,7 +162,7 @@ def render_post(template, post):
         "date": html.escape(post.get("date", "")),
         "category": html.escape(post.get("category", "")),
         "pr_notice": '<p class="pr-notice">この記事にはプロモーション（広告）が含まれています。</p>' if post.get("pr") else "",
-        "content": rel_links(post.get("content", "")),
+        "content": wrap_photos(rel_links(post.get("content", ""))),
         "json_ld": json_ld,
     }
     return re.sub(r"\{\{(\w+)\}\}", lambda m: values[m.group(1)], template)

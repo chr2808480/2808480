@@ -128,6 +128,14 @@ document.addEventListener('click', (e) => {
     if (item) {
         openDetail(item.getAttribute('data-full'), item.getAttribute('data-caption'));
     }
+
+    // ブログ記事の写真（posts/〜.html）
+    // 写真そのものへのリンクになっていますが、移動はせずに、この場で大きく表示します
+    const photo = e.target.closest('.post-photo');
+    if (photo && detailView) {
+        e.preventDefault();
+        openDetail(photo.getAttribute('href'), '');
+    }
 });
 
     if (detailView) {
