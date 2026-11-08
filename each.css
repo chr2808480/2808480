@@ -556,9 +556,8 @@ Privacy Policy(privacy.html)
    ギャラリーと同じ角丸・マウスを乗せたときの拡大で、タップすると大きく表示されます（common.js） */
 .post-photo {
  display: block;
- width: fit-content;
- max-width: 100%;
- /* 小さめの写真や縦長の写真は真ん中に */
+ /* 写真の横幅をそろえる（PCでは640px、スマホでは画面の幅いっぱい）　640px を変えると、すべての写真の横幅が変わります */
+ width: min(100%, 640px);
  margin: 0 auto;
  overflow: hidden;
  border-radius: 20px;
@@ -567,13 +566,15 @@ Privacy Policy(privacy.html)
 }
 
 .post-photo img {
- width: auto;
+ width: 100%;
  /* 写真が画面からはみ出さないように（画面の高さの8割まで） */
  max-height: 80vh;
+ /* 高さが上限を超えるときは、横幅はそのままで上下を切り取って収めます（タップすると写真全体が見られます） */
+ object-fit: cover;
  transition: transform 0.4s ease;
 
  /* 縦長の写真は画面の高さの5割まで（縦長かどうかは common.js が見分けて _portrait を付けます）
-    タップすると大きく表示されるので、記事の中では控えめにしています */
+    横幅はほかの写真とそろえるので、上下が少し切れて見えます */
  &._portrait {
   max-height: 50vh;
  }
