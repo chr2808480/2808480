@@ -143,6 +143,18 @@ document.addEventListener('click', (e) => {
     }
 });
 
+// ブログ記事の写真（posts/〜.html）：縦長の写真に目印（_portrait）を付ける
+// 縦長かどうかは CSS だけでは見分けられないので、読み込んだ写真の縦横の大きさで判断しています。
+// 目印の付いた写真は、each.css で画面の高さの5割までに抑えています。
+document.querySelectorAll('.post-photo img').forEach(img => {
+    const mark = () => img.classList.toggle('_portrait', img.naturalHeight > img.naturalWidth);
+    if (img.complete) {
+        mark();
+    } else {
+        img.addEventListener('load', mark);
+    }
+});
+
 // 応援フォーム送信
 // EmailJS を読み込んでいるページ（トップ・Request）でだけ準備します。
 // 読み込んでいないブログなどのページでは、ここでエラーにならないようにしています。

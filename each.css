@@ -568,9 +568,15 @@ Privacy Policy(privacy.html)
 
 .post-photo img {
  width: auto;
- /* 縦長の写真が画面からはみ出さないように（画面の高さの8割まで） */
+ /* 写真が画面からはみ出さないように（画面の高さの8割まで） */
  max-height: 80vh;
  transition: transform 0.4s ease;
+
+ /* 縦長の写真は画面の高さの5割まで（縦長かどうかは common.js が見分けて _portrait を付けます）
+    タップすると大きく表示されるので、記事の中では控えめにしています */
+ &._portrait {
+  max-height: 50vh;
+ }
 }
 
 .post-photo:hover img {
