@@ -156,6 +156,7 @@ python3 .claude/skills/blog-rewrite/scripts/posts.py show 49   # 反映後に読
 ```
 
 - 広告を含む記事は `add` に `--pr` を付ける。
+- 写真は本文の中に `<img src='images/blog/ファイル名.jpg' alt='写真の説明'>` と1行で書き、前後を空行で挟む（原稿に写真の行があれば、位置を保ったまま残す）。画像は `images/blog/` に置く。記事ページを作るときに、ギャラリーと同じ角丸・タップで拡大できる枠（`.post-photo`）で自動的に包まれる。
 - 本文ファイルは一時的な作業用の場所に置き、リポジトリに残さない。
 - `add` / `update` のあと、記事ページ（`posts/<id>.html`）と `sitemap.xml` も自動で作り直される。検索エンジンが読むのはこちらなので、コミットには posts-data.js と一緒に `posts/` と `sitemap.xml` の変更も必ず含める。
 - posts-data.js を手で直したときや、記事ページの形（`templates/post.html`）を変えたときは `posts.py build` を実行する。

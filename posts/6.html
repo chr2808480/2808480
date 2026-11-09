@@ -61,6 +61,15 @@
   </article>
 <a href="../blog.html" class="back-link">← 一覧に戻る</a>
 <div class="spacer"></div><div class="spacer"></div><div class="spacer"></div>
+
+  <!-- 写真を大きく表示するエリア（本文の写真をタップすると開き、もう一度タップすると閉じます。初期状態は非表示）
+       ギャラリーと同じ仕組みで、背景だけ暗くしています -->
+  <div id="detail-view" class="detail-view--dark hidden">
+   <div class="detail-content">
+    <img id="full-image" src="" alt="">
+    <p id="detail-caption"></p>
+   </div>
+  </div>
  </main>
 
 <script>

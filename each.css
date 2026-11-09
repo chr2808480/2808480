@@ -386,6 +386,32 @@ Gallery(gallery.html)
  flex-shrink: 0;
 }
 
+/* 説明文が無いときは、そのぶんのすき間をとらない（ブログの写真など） */
+#detail-caption:empty {
+ display: none;
+}
+
+/* 背景を暗くする全画面表示（ブログ記事の写真で使用）
+   後ろの記事がうっすら透けて見えるくらいの暗さです。0.85 を大きくするともっと暗くなります */
+#detail-view.detail-view--dark {
+ background-color: rgb(0 0 0 / 0.85);
+ backdrop-filter: blur(4px);
+ animation: detail-fadein 0.2s ease;
+ /* 右上のメニューボタン（z-index: 9999）よりも手前に出して、暗い背景の上に浮かないようにしています */
+ z-index: 10000;
+
+ /* 写真を大きく見せるため、横は画面の幅いっぱいまで使います（スマホで記事の中より大きく見えるように） */
+ .detail-content {
+  width: 100%;
+ }
+}
+
+@keyframes detail-fadein {
+ from {
+  opacity: 0;
+ }
+}
+
 /* 表示切り替え用クラス */
 .hidden {
  display: none !important;
@@ -522,6 +548,50 @@ Privacy Policy(privacy.html)
 /* posts-data.js の content が入る場所　タイトルや下の線とくっつかないよう、上下に余白をとっています */
 .body-text {
  margin: 48px 0;
+}
+
+/*－－－－－－－－－－ 記事の中の写真（posts/〜.html） －－－－－－－－－－*/
+/* posts-data.js に <img src='images/blog/〜.jpg' alt='〜'> と書いた写真です。
+   記事ページを作るときに <a class="post-photo"> で包まれます（posts.py）。
+   ギャラリーと同じ角丸・マウスを乗せたときの拡大で、タップすると大きく表示されます（common.js） */
+.post-photo {
+ display: block;
+ /* 写真の横幅をそろえる（PCでは640px、スマホでは画面の幅いっぱい）　640px を変えると、すべての写真の横幅が変わります */
+ width: min(100%, 640px);
+ margin: 0 auto;
+ overflow: hidden;
+ border-radius: 20px;
+ cursor: pointer;
+ background-color: var(--color-bg);
+}
+
+.post-photo img {
+ width: 100%;
+ /* 写真が画面からはみ出さないように（画面の高さの8割まで） */
+ max-height: 80vh;
+ /* 高さが上限を超えるときは、横幅はそのままで上下を切り取って収めます（タップすると写真全体が見られます） */
+ object-fit: cover;
+ transition: transform 0.4s ease;
+
+ /* 縦長の写真は画面の高さの5割まで（縦長かどうかは common.js が見分けて _portrait を付けます）
+    横幅はほかの写真とそろえるので、上下が少し切れて見えます */
+ &._portrait {
+  max-height: 50vh;
+ }
+}
+
+.post-photo:hover img {
+ transform: scale(1.05);
+}
+
+/* 写真のすぐ後ろの改行を消して、写真の上と下の空きを1行ぶんにそろえる */
+.post-photo + br {
+ display: none;
+}
+
+/* 写真を続けて置いたときのすき間 */
+.post-photo + br + .post-photo {
+ margin-top: 16px;
 }
 
 /*－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－

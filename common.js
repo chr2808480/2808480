@@ -128,10 +128,30 @@ document.addEventListener('click', (e) => {
     if (item) {
         openDetail(item.getAttribute('data-full'), item.getAttribute('data-caption'));
     }
+
+    // ブログ記事の写真（posts/〜.html）
+    // 写真そのものへのリンクになっていますが、移動はせずに、この場で大きく表示します
+    const photo = e.target.closest('.post-photo');
+    if (photo && detailView) {
+        e.preventDefault();
+        openDetail(photo.getAttribute('href'), '');
+    }
 });
 
     if (detailView) {
         detailView.addEventListener('click', closeDetail);
+    }
+});
+
+// ブログ記事の写真（posts/〜.html）：縦長の写真に目印（_portrait）を付ける
+// 縦長かどうかは CSS だけでは見分けられないので、読み込んだ写真の縦横の大きさで判断しています。
+// 目印の付いた写真は、each.css で画面の高さの5割までに抑えています。
+document.querySelectorAll('.post-photo img').forEach(img => {
+    const mark = () => img.classList.toggle('_portrait', img.naturalHeight > img.naturalWidth);
+    if (img.complete) {
+        mark();
+    } else {
+        img.addEventListener('load', mark);
     }
 });
 
